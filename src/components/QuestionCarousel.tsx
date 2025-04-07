@@ -52,7 +52,7 @@ const questions: (QuestionI | { component: JSX.Element })[] = [
         component: <LoginForm/>,
     },
     {
-        component: <Details/>
+        component: <Details/>,
     },
 ];
 
@@ -117,7 +117,7 @@ export default function QuestionCarousel() {
                                 onChange={(e) => setInputValue(e.target.value)}
                                 className="border p-2 rounded w-full mb-2"
                             />
-                            <button onClick={handleInputSubmit} className="w-full bg-blue-600 text-white p-2 rounded">
+                            <button onClick={handleInputSubmit} className="w-full bg-blue-600 text-white p-2 rounded bg-orange-500">
                                 Submit
                             </button>
                         </div>
@@ -127,7 +127,7 @@ export default function QuestionCarousel() {
                                 <button
                                     key={idx}
                                     onClick={() => handleOptionSelect(opt)}
-                                    className="border p-2 rounded hover:bg-gray-100"
+                                    className="border p-2 rounded hover:bg-gray-100 bg-orange-500 text-white"
                                 >
                                     {opt}
                                 </button>
