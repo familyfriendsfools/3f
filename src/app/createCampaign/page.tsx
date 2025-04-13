@@ -2,11 +2,14 @@
 
 import QuestionCarousel from "@/components/QuestionCarousel";
 
+
 export default function createCampaign() {
     return (
         <div className="grid min-h-screen grid-cols-2">
             {/* Left side image section */}
-            <div className="relative hidden lg:block bg-orange-500">
+            <div className="relative hidden lg:block "
+                 style={{background: "#545454"}}
+            >
                 <img
                     src="/icon.svg"
                     alt="Image"

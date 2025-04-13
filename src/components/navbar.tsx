@@ -13,7 +13,9 @@ import Link from "next/link";
 
 export default function Navbar() {
     return (
-        <div className="w-full flex justify-between py-4 px-20">
+        <div className="w-full flex justify-between py-4 px-20"
+             style={{background: "#545454"}}
+        >
             <Link href="/">
                 <Image src={"/logo.png"} alt="Logo" width={150} height={50} />
             </Link>

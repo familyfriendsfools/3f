@@ -127,7 +127,8 @@ export default function QuestionCarousel() {
                                 <button
                                     key={idx}
                                     onClick={() => handleOptionSelect(opt)}
-                                    className="border p-2 rounded hover:bg-gray-100 bg-orange-500 text-white"
+                                    className="border p-2 rounded hover:bg-orange-500 text-black hover:text-white transition-colors duration-200"
+                                    style={{background: "#fffff"}}
                                 >
                                     {opt}
                                 </button>
