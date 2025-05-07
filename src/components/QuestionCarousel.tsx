@@ -5,6 +5,8 @@ import {ElementTypeE, QuestionE} from "@/lib/enums";
 import {ArrowLeft, ArrowRight} from "lucide-react";
 import {LoginForm} from "@/components/login-form";
 import Details from "@/components/campaign/details";
+import DetailsPreview from "@/components/DetailsPreview";
+
 
 const questions: (QuestionI | { component: JSX.Element })[] = [
     {
@@ -52,7 +54,7 @@ const questions: (QuestionI | { component: JSX.Element })[] = [
         component: <LoginForm/>,
     },
     {
-        component: <Details/>,
+        component: "details"  //<Details/>,
     },
 ];
 
@@ -97,63 +99,107 @@ export default function QuestionCarousel() {
         goToNext();
     };
 
+    const [formData, setFormData] = useState({
+        title: "",
+        description: "",
+        picture: null,
+        video: null,
+        urls: [],
+    });
+    const [isPreview, setIsPreview] = useState(false);
+
+    const handleDetailsChange = (field: string, value: any) => {
+        setFormData(prev => ({ ...prev, [field]: value }));
+    };
+
+
+
     return (
         <div>
-        <div className="max-w-2xl mx-auto p-4 h-[80vh] flex flex-col justify-center items-center">
+            <div className="max-w-2xl mx-auto p-4 h-[80vh] flex flex-col justify-center items-center">
 
-            {/* Render pergunta ou componente */}
-            {"component" in currentItem ? (
-                currentItem.component
-            ) : (
-                <>
-                    <h3 className="mb-4 text-lg font-semibold">{currentItem.question}</h3>
-
-                    {currentItem.elementType === QuestionE.input ? (
-                        <div>
-                            <input
-                                type={currentItem.type ?? ElementTypeE.text}
-                                placeholder={currentItem.placeholder ?? "Enter your answer"}
-                                value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
-                                className="border p-2 rounded w-full mb-2"
+                {/* Render pergunta ou componente */}
+                {"component" in currentItem ? (
+                    currentItem.component === "details" ? (
+                        isPreview ? (
+                            <DetailsPreview
+                                data={formData}
+                                onEdit={() => setIsPreview(false)}
                             />
-                            <button onClick={handleInputSubmit} className="w-full bg-blue-600 text-white p-2 rounded bg-orange-500">
-                                Submit
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="flex flex-wrap gap-2 justify-center">
-                            {currentItem.options?.map((opt, idx) => (
+                        ) : (
+                            <>
+                                <Details
+                                    formData={formData}
+                                    onChange={handleDetailsChange}
+                                />
                                 <button
-                                    key={idx}
-                                    onClick={() => handleOptionSelect(opt)}
-                                    className="border p-2 rounded hover:bg-orange-500 text-black hover:text-white transition-colors duration-200"
-                                    style={{background: "#fffff"}}
+                                    onClick={() => setIsPreview(true)}
+                                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
                                 >
-                                    {opt}
+                                    Preview
                                 </button>
-                            ))}
-                        </div>
-                    )}
-                </>
-            )}
+                            </>
+                        )
+                    ) : (
+                        currentItem.component
+                    )
+                ) : (
+                    <>
+                        <h3 className="mb-4 text-lg font-semibold">{currentItem.question}</h3>
+
+                        {currentItem.elementType === QuestionE.input ? (
+                            <div>
+                                <input
+                                    type={currentItem.type ?? ElementTypeE.text}
+                                    placeholder={currentItem.placeholder ?? "Enter your answer"}
+                                    value={inputValue}
+                                    onChange={(e) => setInputValue(e.target.value)}
+                                    className="border p-2 rounded w-full mb-2"
+                                />
+                                <button
+                                    onClick={handleInputSubmit}
+                                    className="w-full bg-blue-600 text-white p-2 rounded bg-orange-500"
+                                >
+                                    Submit
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="flex flex-wrap gap-2 justify-center">
+                                {currentItem.options?.map((opt, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => handleOptionSelect(opt)}
+                                        className="border p-2 rounded hover:bg-orange-500 text-black hover:text-white transition-colors duration-200"
+                                    >
+                                        {opt}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </>
+                )}
+            </div>
+
+            {/* Navegação */}
+            <div className="flex justify-between items-center mb-4">
+                <button
+                    onClick={goToPrevious}
+                    disabled={currentIndex === 0}
+                    className="text-sm flex items-center gap-1 text-blue-600 disabled:opacity-30"
+                >
+                    <ArrowLeft size={16} /> Previous
+                </button>
+                <span className="text-gray-500 text-sm">
+                {currentIndex + 1}/{questions.length}
+            </span>
+                <button
+                    onClick={goToNext}
+                    disabled={currentIndex === questions.length - 1}
+                    className="text-sm flex items-center gap-1 text-blue-600 disabled:opacity-30"
+                >
+                    Next <ArrowRight size={16} />
+                </button>
+            </div>
         </div>
-    {/* Navegação */
-    }
-    <div className="flex justify-between items-center mb-4">
-        <button onClick={goToPrevious} disabled={currentIndex === 0}
-                className="text-sm flex items-center gap-1 text-blue-600 disabled:opacity-30">
-            <ArrowLeft size={16}/> Previous
-        </button>
-        <span className="text-gray-500 text-sm">
-                    {currentIndex + 1}/{questions.length}
-                </span>
-        <button onClick={goToNext} disabled={currentIndex === questions.length - 1}
-                className="text-sm flex items-center gap-1 text-blue-600 disabled:opacity-30">
-            Next <ArrowRight size={16}/>
-        </button>
-    </div>
-</div>
-)
-    ;
+    );
 }
