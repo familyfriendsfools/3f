@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { DynamicURLInputs } from "@/components/dinamicUrl";
 
-function Details({ formData, onChange }) {
+function Details({ formData = {}, onChange }) {
 
     console.log(" #",formData.urls);
     return (
@@ -13,7 +13,7 @@ function Details({ formData, onChange }) {
                 <Input
                     id="title"
                     type="text"
-                    value={formData.title}
+                    value={formData.title || ""}
                     onChange={(e) => onChange("title", e.target.value)}
                 />
             </div>
@@ -22,7 +22,7 @@ function Details({ formData, onChange }) {
                 <Input
                     id="description"
                     type="text"
-                    value={formData.description}
+                    value={formData.description || ""}
                     onChange={(e) => onChange("description", e.target.value)}
                 />
             </div>
@@ -45,7 +45,7 @@ function Details({ formData, onChange }) {
                 />
             </div>
             <DynamicURLInputs
-                urls={formData.urls}
+                urls={Array.isArray(formData.urls) ? formData.urls : []}
                 onChange={(urls) => onChange("urls", urls)}
             />
         </div>
