@@ -1,34 +1,43 @@
 // DynamicURLInputs.tsx
-import React, { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Trash2, Plus } from "lucide-react"
-import { Label } from "@/components/ui/label"
+import React, {useState} from "react"
+import {Input} from "@/components/ui/input"
+import {Button} from "@/components/ui/button"
+import {Trash2, Plus} from "lucide-react"
+import {Label} from "@/components/ui/label"
+import {useAtom} from "jotai/index";
+import {formAtom} from "@/state";
 
-export function DynamicURLInputs(urlParams, onChange) {
-    const [urls, setUrls] = useState<string[]>(urlParams.urls || [""])
-    console.log("?",urlParams)
-
+export function DynamicURLInputs() {
+    const [form, setForm] = useAtom(formAtom);
     const handleChange = (index: number, value: string) => {
-        const updated = [...urls]
-        updated[index] = value
-        setUrls(updated)
-        onChange(updated)
+        const updatedUrls = [...form.urls]
+        updatedUrls[index] = value
+        setForm((prev) => ({
+            ...prev,
+            urls: updatedUrls,
+        }))
     }
-    console.log(urls)
-
-    const addField = () => setUrls([...urls, ""])
+    const addField = () => {
+        setForm((prev) => ({
+            ...prev,
+            urls: [...prev.urls, ""],
+        }))
+    }
 
     const removeField = (index: number) => {
-        const updated = urls.filter((_, i) => i !== index)
-        setUrls(updated)
+        const updatedUrls = [...form.urls]
+        updatedUrls.splice(index, 1)
+        setForm((prev) => ({
+            ...prev,
+            urls: updatedUrls,
+        }))
     }
 
     return (
         <div className="grid gap-4">
             <Label className="text-base">URLs</Label>
 
-            {urls.map((url, idx) => (
+            {form.urls.map((url, idx) => (
                 <div key={idx} className="flex items-center gap-2">
                     <Input
                         type="url"
@@ -36,14 +45,14 @@ export function DynamicURLInputs(urlParams, onChange) {
                         value={url}
                         onChange={(e) => handleChange(idx, e.target.value)}
                     />
-                    {urls.length > 1 && (
+                    {form.urls.length > 1 && (
                         <Button
                             type="button"
                             variant="ghost"
                             size="icon"
                             onClick={() => removeField(idx)}
                         >
-                            <Trash2 className="w-4 h-4 text-red-500" />
+                            <Trash2 className="w-4 h-4 text-red-500"/>
                         </Button>
                     )}
                 </div>
@@ -56,7 +65,7 @@ export function DynamicURLInputs(urlParams, onChange) {
                 size="sm"
                 className="w-fit"
             >
-                <Plus className="w-4 h-4 mr-2" />
+                <Plus className="w-4 h-4 mr-2"/>
                 Add URL
             </Button>
         </div>

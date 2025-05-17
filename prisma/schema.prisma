@@ -1,0 +1,47 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  name      String?
+  campaigns Campaign[] // ← relação 1:N
+}
+
+model Campaign {
+  id              String    @id @default(uuid())
+  userId          String
+  title           String
+  description     String?
+  goal            Float?
+  timeToPayBack   Int?
+  paybackPlan     String?
+  campaignType    String?
+  campaignSubType String?
+  picture         String?
+  video           String?
+  createdAt       DateTime  @default(now())
+
+  urls            Url[]     @relation("CampaignUrls")
+
+  user User       @relation(fields: [userId], references: [id])
+}
+
+
+model Url {
+  id         String   @id @default(uuid())
+  url        String
+  campaignId String
+  campaign   Campaign @relation("CampaignUrls", fields: [campaignId], references: [id])
+}
+
+

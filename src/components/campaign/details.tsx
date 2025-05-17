@@ -2,10 +2,19 @@ import React from 'react';
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { DynamicURLInputs } from "@/components/dinamicUrl";
+import {useAtom} from "jotai";
+import {formAtom} from "@/state";
 
-function Details({ formData = {}, onChange }) {
+function Details() {
+    const [form, setForm] = useAtom(formAtom);
+    const handleInputs = (key: string, value: any) => {
+        setForm((prev) => ({
+            ...prev,
+            [key]: value,
+        }));
+    }
 
-    console.log(" #",formData.urls);
+    console.log(" #",form.urls);
     return (
         <div className="space-y-4">
             <div className="flex flex-col space-y-1">
@@ -13,8 +22,8 @@ function Details({ formData = {}, onChange }) {
                 <Input
                     id="title"
                     type="text"
-                    value={formData.title || ""}
-                    onChange={(e) => onChange("title", e.target.value)}
+                    value={form.title || ""}
+                    onChange={(e) => handleInputs("title", e.target.value)}
                 />
             </div>
             <div className="flex flex-col space-y-1">
@@ -22,8 +31,8 @@ function Details({ formData = {}, onChange }) {
                 <Input
                     id="description"
                     type="text"
-                    value={formData.description || ""}
-                    onChange={(e) => onChange("description", e.target.value)}
+                    value={form.description || ""}
+                    onChange={(e) => handleInputs("description", e.target.value)}
                 />
             </div>
             <div className="flex flex-col space-y-1">
@@ -32,7 +41,7 @@ function Details({ formData = {}, onChange }) {
                     id="picture"
                     type="file"
                     accept="image/*"
-                    onChange={(e) => onChange("picture", e.target.files[0])}
+                    onChange={(e) => handleInputs("picture", e.target.files[0])}
                 />
             </div>
             <div className="flex flex-col space-y-1">
@@ -41,13 +50,10 @@ function Details({ formData = {}, onChange }) {
                     id="video"
                     type="file"
                     accept="video/*"
-                    onChange={(e) => onChange("video", e.target.files[0])}
+                    onChange={(e) => handleInputs("video", e.target.files[0])}
                 />
             </div>
-            <DynamicURLInputs
-                urls={Array.isArray(formData.urls) ? formData.urls : []}
-                onChange={(urls) => onChange("urls", urls)}
-            />
+            <DynamicURLInputs/>
         </div>
     );
 }

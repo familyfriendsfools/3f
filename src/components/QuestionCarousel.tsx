@@ -12,7 +12,6 @@ import { useAtom } from "jotai";
 export default function QuestionCarousel() {
     const [form, setForm] = useAtom(formAtom);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [inputValue, setInputValue] = useState("");
     const [isPreview, setIsPreview] = useState(false);
 
     const BaseQuestions: (QuestionI | { component: JSX.Element })[] = [
@@ -54,7 +53,7 @@ export default function QuestionCarousel() {
         },
         {
             question: "Payback plan?",
-            key: "paymentPlan",
+            key: "paybackPlan",
             options: ["Weekly", "Biweekly", "Monthly", "Yearly"],
         },
         {
@@ -62,15 +61,7 @@ export default function QuestionCarousel() {
         },
         {
             component: (
-                <Details
-                    formData={form}
-                    onChange={(key, value) =>
-                        setForm((prev) => ({
-                            ...prev,
-                            [key]: value,
-                        }))
-                    }
-                />
+                <Details/>
             ),
         },
     ];
@@ -98,7 +89,7 @@ export default function QuestionCarousel() {
             }));
         }
 
-        if ("children" in currentItem && currentItem.children?.[option]) {
+        if ("children" in currentItem && currentItem.children && currentItem.children?.[option]) {
             const child = {
                 ...currentItem.children[option],
                 key: "campaignSubType",
@@ -126,19 +117,8 @@ export default function QuestionCarousel() {
 
 
 
-    const handleInputSubmit = () => {
-        if (!inputValue.trim() || !("key" in currentItem)) return;
 
-        setForm((prev) => ({
-            ...prev,
-            [currentItem.key as string]: inputValue,
-        }));
-
-        setInputValue("");
-        goToNext();
-    };
-
-    console.log("form", form)
+    console.log("?form", form)
     return (
         <div>
             <div className="max-w-2xl mx-auto p-4 h-[80vh] flex flex-col justify-center items-center">
@@ -173,16 +153,13 @@ export default function QuestionCarousel() {
                                 <input
                                     type={currentItem.type ?? ElementTypeE.text}
                                     placeholder={currentItem.placeholder ?? "Enter your answer"}
-                                    value={inputValue}
-                                    onChange={(e) => setInputValue(e.target.value)}
+                                    value={form[currentItem.key]}
+                                    onChange={(e) => setForm((prev) => ({
+                                        ...prev,
+                                        [currentItem?.key as string]: e.target.value,
+                                    }))}
                                     className="border p-2 rounded w-full mb-2"
                                 />
-                                <button
-                                    onClick={handleInputSubmit}
-                                    className="w-full text-white p-2 rounded bg-orange-500"
-                                >
-                                    Submit
-                                </button>
                             </div>
                         ) : (
                             <div className="flex flex-wrap gap-2 justify-center">
