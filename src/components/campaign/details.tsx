@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { DynamicURLInputs } from "@/components/dinamicUrl";
 import {useAtom} from "jotai";
 import {formAtom} from "@/state";
+import { Textarea } from "@/components/ui/textarea"
+
 
 function Details() {
     const [form, setForm] = useAtom(formAtom);
@@ -28,9 +30,9 @@ function Details() {
             </div>
             <div className="flex flex-col space-y-1">
                 <Label htmlFor="description">Description</Label>
-                <Input
+                <Textarea
                     id="description"
-                    type="text"
+                    className="resize-none h-24 w-100"
                     value={form.description || ""}
                     onChange={(e) => handleInputs("description", e.target.value)}
                 />
