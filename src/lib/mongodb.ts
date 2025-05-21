@@ -19,10 +19,16 @@ async function dbConnect() {
     if (cached.conn) return cached.conn
 
     if (!cached.promise) {
-        cached.promise = mongoose.connect(MONGODB_URI!, {
-            bufferCommands: false,
-        })
+        mongoose.set('strictQuery', false);
+        cached.promise = mongoose.connect(MONGODB_URI, {
+            serverApi: { version: '1', strict: true, deprecationErrors: true },
+        }).catch((err) => {
+            console.error('❌ Mongoose connection error:', err);
+            throw err;
+        });
     }
+
+
 
     cached.conn = await cached.promise
     return cached.conn

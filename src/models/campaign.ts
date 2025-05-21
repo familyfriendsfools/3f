@@ -1,3 +1,5 @@
+import {model, models} from "mongoose";
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -14,4 +16,6 @@ const CampaignSchema = new Schema(
     { timestamps: true }
 );
 
-module.exports = mongoose.model('Campaign', CampaignSchema);
+const Campaign = models.Campaign || model('Campaign', CampaignSchema);
+
+export default Campaign;

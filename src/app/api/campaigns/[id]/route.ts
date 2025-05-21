@@ -1,4 +1,4 @@
-import { connectDB } from '@/lib/mongoose';
+import connectDB from '@/lib/mongodb';
 import Campaign from '@/models/campaign';
 
 export async function GET(_, { params }) {
