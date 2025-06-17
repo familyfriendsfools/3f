@@ -11,6 +11,7 @@ import { useAtom } from "jotai";
 
 export default function QuestionCarousel() {
     const [form, setForm] = useAtom(formAtom);
+    const [userCampaign, setUserCampaign] = useState<Record<string, any>>({});
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPreview, setIsPreview] = useState(false);
 
@@ -57,12 +58,12 @@ export default function QuestionCarousel() {
             options: ["Weekly", "Biweekly", "Monthly", "Yearly"],
         },
         {
-            component: <LoginForm />,
+            // {
+            //   component: <LoginForm />,
+            // },
         },
         {
-            component: (
-                <Details/>
-            ),
+            component: <Details />,
         },
     ];
 
@@ -87,6 +88,10 @@ export default function QuestionCarousel() {
                 ...prev,
                 [currentItem.key as string]: option,
             }));
+            setUserCampaign((prev) => ({
+                ...prev,
+                [currentItem.key as string]: option,
+            }));
         }
 
         if ("children" in currentItem && currentItem.children && currentItem.children?.[option]) {
@@ -97,17 +102,13 @@ export default function QuestionCarousel() {
 
             setQuestions((prev) => {
                 const newQuestions = [...prev];
-
-                // Verifica se já existe campaignSubType nas próximas posições
                 const existingIndex = newQuestions.findIndex(
                     (q, i) => i > currentIndex && "key" in q && q.key === "campaignSubType"
                 );
-
                 if (existingIndex !== -1) {
-                    newQuestions.splice(existingIndex, 1); // remove anterior
+                    newQuestions.splice(existingIndex, 1);
                 }
-
-                newQuestions.splice(currentIndex + 1, 0, child); // insere nova
+                newQuestions.splice(currentIndex + 1, 0, child);
                 return newQuestions;
             });
         }
@@ -115,14 +116,9 @@ export default function QuestionCarousel() {
         goToNext();
     };
 
-
-
-
-    console.log("?form", form)
     return (
         <div>
             <div className="max-w-2xl mx-auto p-4 h-[80vh] flex flex-col justify-center items-center">
-                {/* Render pergunta ou componente */}
                 {"component" in currentItem ? (
                     isPreview && currentIndex === questions.length - 1 ? (
                         <DetailsPreview
@@ -154,10 +150,17 @@ export default function QuestionCarousel() {
                                     type={currentItem.type ?? ElementTypeE.text}
                                     placeholder={currentItem.placeholder ?? "Enter your answer"}
                                     value={form[currentItem.key]}
-                                    onChange={(e) => setForm((prev) => ({
-                                        ...prev,
-                                        [currentItem?.key as string]: e.target.value,
-                                    }))}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        setForm((prev) => ({
+                                            ...prev,
+                                            [currentItem.key as string]: value,
+                                        }));
+                                        setUserCampaign((prev) => ({
+                                            ...prev,
+                                            [currentItem.key as string]: value,
+                                        }));
+                                    }}
                                     className="border p-2 rounded w-full mb-2"
                                 />
                             </div>
@@ -188,8 +191,8 @@ export default function QuestionCarousel() {
                     <ArrowLeft size={16} /> Previous
                 </button>
                 <span className="text-gray-500 text-sm">
-          {currentIndex + 1}/{questions.length}
-        </span>
+                    {currentIndex + 1}/{questions.length}
+                </span>
                 <button
                     onClick={goToNext}
                     disabled={currentIndex === questions.length - 1}
@@ -197,6 +200,12 @@ export default function QuestionCarousel() {
                 >
                     Next <ArrowRight size={16} />
                 </button>
+            </div>
+
+            {/* DEBUG: userCampaign */}
+            <div className="max-w-2xl mx-auto p-4 text-xs text-gray-600 bg-gray-100 rounded">
+                <strong>Debug userCampaign:</strong>
+                <pre>{JSON.stringify(userCampaign, null, 2)}</pre>
             </div>
         </div>
     );

@@ -40,7 +40,7 @@ export default function Navbar() {
                             <DropdownMenuContent>
                                 <DropdownMenuLabel>Settings</DropdownMenuLabel>
                                 <DropdownMenuItem>Impact</DropdownMenuItem>
-                                <DropdownMenuItem>Campaigns</DropdownMenuItem>
+                                <DropdownMenuItem asChild><a href="/campaigns">Campaigns</a></DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem>Logout</DropdownMenuItem>
                             </DropdownMenuContent>

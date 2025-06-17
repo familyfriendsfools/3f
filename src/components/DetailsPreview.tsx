@@ -1,27 +1,33 @@
 import React from "react";
 
+import { useRouter } from "next/navigation";
+
 function DetailsPreview({ data, onEdit }) {
     const handleCreateCampaign = async () => {
-        if (!data.userId) {
-            alert("Utilizador não autenticado.");
-            return;
-        }
+        // Se não tiver userId, atribui um temporário
+        const payload = {
+            ...data,
+            name: data.name || data.title || "Untitled Campaign", // usa título como nome
+            category_id: data.category_id || "dummy-category-123", // preenche fake para test
+            userId: data.userId || "dummy-user-123",
+        };
 
         try {
             const res = await fetch("/api/campaigns", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+                body: JSON.stringify(payload),
             });
 
-            if (!res.ok) throw new Error("Erro ao criar campanha");
+            if (!res.ok) throw new Error("Error creating campaign");
 
             const result = await res.json();
-            alert("Campanha criada com sucesso!");
+            alert("Campaign created successfully!");
             console.log(result.campaign);
+
+
         } catch (err) {
-            console.error(err);
-            alert("Erro ao criar campanha.");
+            console.error("Erro ao criar campanha:", err);
         }
     };
 
