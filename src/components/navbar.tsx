@@ -23,22 +23,25 @@ export default function Navbar() {
             <NavigationMenu>
                 <NavigationMenuList className="gap-6">
                     <NavigationMenuItem>
-                        <Link href="/createCampaign">
-                            Create Campaign
+                        <Link href="/initialCarousel">
+                            <button className="bg-[#ff9800] text-white font-semibold px-4 py-2 rounded hover:bg-[#e27f00] transition duration-200">
+                                Getting to Know You
+                            </button>
                         </Link>
                     </NavigationMenuItem>
+                    {/*
                     <NavigationMenuItem>
                         <Link href="/about">
                             About Us
                         </Link>
                     </NavigationMenuItem>
-
+                    */}
                     {/* Profile dropdown */}
                     <NavigationMenuItem>
                         <DropdownMenu>
                             <DropdownMenuTrigger>Profile</DropdownMenuTrigger>
                             <DropdownMenuContent>
-                                <DropdownMenuLabel>Settings</DropdownMenuLabel>
+                                <DropdownMenuLabel asChild><a href="/settings">Settings</a></DropdownMenuLabel>
                                 <DropdownMenuItem>Impact</DropdownMenuItem>
                                 <DropdownMenuItem asChild><a href="/campaigns">Campaigns</a></DropdownMenuItem>
                                 <DropdownMenuSeparator />

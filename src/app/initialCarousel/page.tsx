@@ -1,5 +1,5 @@
 "use client";
-import QuestionCarousel from "@/components/QuestionCarousel";
+import InitialCarousel from "@/components/InitialCarousel";
 import Link from "next/link";
 
 export default function createCampaign() {
@@ -10,17 +10,17 @@ export default function createCampaign() {
                  style={{background: "#545454"}}
             >
                 <Link href="/">
-                <img
-                    src="/icon.svg"
-                    alt="Image"
-                    className="absolute top-1/2 left-1/2 w-[250px] h-[250px] transform -translate-x-1/2 -translate-y-1/2 dark:brightness-[0.2] dark:grayscale"
-                />
+                    <img
+                        src="/icon.svg"
+                        alt="Image"
+                        className="absolute top-1/2 left-1/2 w-[250px] h-[250px] transform -translate-x-1/2 -translate-y-1/2 dark:brightness-[0.2] dark:grayscale"
+                    />
                 </Link>
             </div>
 
             {/* Right side with the QuestionCarousel */}
             <div className="flex flex-col gap-4 p-6 md:p-10">
-                <QuestionCarousel/>
+                <InitialCarousel/>
             </div>
         </div>
     );
