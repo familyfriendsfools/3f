@@ -1,7 +1,5 @@
 "use client";
-
 import QuestionCarousel from "@/components/QuestionCarousel";
-
 
 export default function createCampaign() {
     return (

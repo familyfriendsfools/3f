@@ -1,0 +1,37 @@
+import type { CampaignI } from '@/types/campaign';
+import { PrismaClient } from '@/generated/prisma';
+
+const prisma = new PrismaClient();
+
+export async function createCampaign(data: Omit<CampaignI, 'id' | 'isActive' | 'createdAt' | 'updatedAt'>) {
+  return prisma.campaign.create({ data });
+}
+
+export async function updateCampaign(id: string, data: Partial<CampaignI>) {
+  return prisma.campaign.update({
+    where: { id },
+    data,
+  });
+}
+
+export async function getCampaign(id: string) {
+  return prisma.campaign.findUnique({
+    where: { id },
+    include: {
+      user: true,
+      type: true,
+      subtype: true,
+    },
+  });
+}
+
+export async function listCampaignsByUser(userId: string) {
+  return prisma.campaign.findMany({
+    where: { userId },
+    include: {
+      type: true,
+      subtype: true,
+    },
+    orderBy: { createdAt: 'desc' },
+  });
+}
