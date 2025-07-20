@@ -23,7 +23,7 @@ export default function Navbar() {
             <NavigationMenu>
                 <NavigationMenuList className="gap-6">
                     <NavigationMenuItem>
-                        <Link href="/createCampaign">
+                        <Link href="/create-campaign">
                             Create Campaign
                         </Link>
                     </NavigationMenuItem>

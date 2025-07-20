@@ -1,5 +1,5 @@
 "use client";
-import type { QuestionI } from "@/lib/types";
+import type { QuestionI } from "@/types/question";
 import { JSX, useState } from "react";
 
 import { ElementTypeE, QuestionE } from "@/lib/enums";
