@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 async function getCampaigns() {
     // MOCK DATA
@@ -22,6 +24,8 @@ export default async function CampaignsPage() {
     const campaigns = await getCampaigns();
 
     return (
+        <>
+            <Navbar/>
         <div className="p-8">
             <h1 className="text-3xl font-bold text-orange-700 mb-6">
                 Your <span className="text-black">Campaigns</span>
@@ -66,5 +70,7 @@ export default async function CampaignsPage() {
                 </Link>
             </div>
         </div>
+            <Footer/>
+        </>
     );
 }
