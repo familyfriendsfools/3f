@@ -186,7 +186,7 @@ export default function QuestionCarousel() {
                 <button
                     onClick={goToPrevious}
                     disabled={currentIndex === 0}
-                    className="text-sm flex items-center gap-1 text-blue-600 disabled:opacity-30"
+                    className="text-sm flex items-center gap-1 text-orange-700 disabled:opacity-30"
                 >
                     <ArrowLeft size={16} /> Previous
                 </button>
@@ -196,7 +196,7 @@ export default function QuestionCarousel() {
                 <button
                     onClick={goToNext}
                     disabled={currentIndex === questions.length - 1}
-                    className="text-sm flex items-center gap-1 text-blue-600 disabled:opacity-30"
+                    className="text-sm flex items-center gap-1 text-orange-700 disabled:opacity-30"
                 >
                     Next <ArrowRight size={16} />
                 </button>

@@ -1,7 +1,6 @@
 "use client";
-
 import QuestionCarousel from "@/components/QuestionCarousel";
-
+import Link from "next/link";
 
 export default function createCampaign() {
     return (
@@ -10,11 +9,13 @@ export default function createCampaign() {
             <div className="relative hidden lg:block "
                  style={{background: "#545454"}}
             >
+                <Link href="/">
                 <img
                     src="/icon.svg"
                     alt="Image"
                     className="absolute top-1/2 left-1/2 w-[250px] h-[250px] transform -translate-x-1/2 -translate-y-1/2 dark:brightness-[0.2] dark:grayscale"
                 />
+                </Link>
             </div>
 
             {/* Right side with the QuestionCarousel */}
