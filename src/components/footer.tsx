@@ -4,7 +4,8 @@ import React from "react";
 
 export default function Footer() {
     return (
-    <div className="flex justify-between py-4 px-20">
+    <div className="w-full flex justify-between py-4 px-20"
+         style={{background: "#545454"}}>
         <div className="flex gap-8">
             <Link href={"/terms"}>Terms and Conditions</Link>
             <Link href={"/terms"}>Privacy Policy</Link>
