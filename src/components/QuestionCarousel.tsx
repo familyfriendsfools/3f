@@ -1,9 +1,10 @@
 "use client";
+import type { QuestionI } from "@/types/question";
 import { JSX, useState } from "react";
-import { QuestionI } from "@/lib/types";
+
 import { ElementTypeE, QuestionE } from "@/lib/enums";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { LoginForm } from "@/components/login-form";
+//import { LoginForm } from "@/components/login-form";
 import Details from "@/components/campaign/details";
 import DetailsPreview from "@/components/DetailsPreview";
 import { formAtom } from "@/state";
@@ -57,11 +58,9 @@ export default function QuestionCarousel() {
             key: "paybackPlan",
             options: ["Weekly", "Biweekly", "Monthly", "Yearly"],
         },
-        {
-            // {
-            //   component: <LoginForm />,
-            // },
-        },
+/*         {
+            component: <LoginForm />
+        }, */
         {
             component: <Details />,
         },
@@ -149,7 +148,7 @@ export default function QuestionCarousel() {
                                 <input
                                     type={currentItem.type ?? ElementTypeE.text}
                                     placeholder={currentItem.placeholder ?? "Enter your answer"}
-                                    value={form[currentItem.key]}
+                                    value={form[currentItem.key as keyof typeof form] as string}
                                     onChange={(e) => {
                                         const value = e.target.value;
                                         setForm((prev) => ({

@@ -1,8 +1,9 @@
 "use client";
-import QuestionCarousel from "@/components/QuestionCarousel";
 import Link from "next/link";
 
-export default function createCampaign() {
+import QuestionCarousel from "@/components/QuestionCarousel";
+
+export default function CreateCampaign() {
     return (
         <div className="grid min-h-screen grid-cols-2">
             {/* Left side image section */}
