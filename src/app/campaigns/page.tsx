@@ -63,7 +63,7 @@ export default async function CampaignsPage() {
             </section>
 
             <div className="mt-6">
-                <Link href="/createCampaign">
+                <Link href="/create-campaign">
                     <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded shadow">
                         Start a Campaign
                     </button>

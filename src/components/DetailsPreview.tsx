@@ -1,4 +1,5 @@
 import React from "react";
+import { generateEditablePDF } from "@/utils/pdf-generator";
 
 import { useRouter } from "next/navigation";
 
@@ -67,6 +68,13 @@ function DetailsPreview({ data, onEdit }) {
             >
                 Create Campaign
             </button>
+            <button
+                onClick={() => generateEditablePDF(data)}
+                className="bg-green-600 text-white px-4 py-2 rounded"
+            >
+                📄 Gerar PDF Contrato
+            </button>
+
         </div>
     );
 }
