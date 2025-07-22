@@ -43,6 +43,11 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+@theme {
+  --color-orange-500: #fc9701;
+  --color-orange-700: #e27f00;
+}
+
 :root {
   --radius: 0.625rem;
   --card: oklch(1 0 0);

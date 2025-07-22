@@ -1,12 +1,22 @@
-'use server';
-import { type Prisma } from '../generated/prisma';
-import { createCampaign, updateCampaign, getCampaign, listCampaignsByUser } from '../lib/db/campaigns';
+"use server";
+import { type Prisma } from "../generated/prisma";
+import {
+  createCampaign,
+  updateCampaign,
+  getCampaign,
+  listCampaignsByUser,
+} from "../lib/db/campaigns";
 
-export async function createCampaignAction(data: Prisma.CampaignUncheckedCreateInput) {
+export async function createCampaignAction(
+  data: Prisma.CampaignUncheckedCreateInput
+) {
   return createCampaign(data);
 }
 
-export async function updateCampaignAction(id: string, data: Prisma.CampaignUncheckedUpdateInput) {
+export async function updateCampaignAction(
+  id: string,
+  data: Prisma.CampaignUncheckedUpdateInput
+) {
   return updateCampaign(id, data);
 }
 
@@ -20,9 +30,11 @@ export async function listCampaignsByUserAction(userId: string) {
 
 export async function deleteCampaignAction(id: string) {
   const campaign = await getCampaign(id);
-  if (!campaign) throw new Error('Campaign not found');
+  if (!campaign) throw new Error("Campaign not found");
 
   // Perform a soft delete or real delete
-  return updateCampaign(id, { status: 'CANCELLED' } as Prisma.CampaignUncheckedUpdateInput); // soft delete
+  return updateCampaign(id, {
+    status: "CANCELLED",
+  } as Prisma.CampaignUncheckedUpdateInput); // soft delete
   // Or: return prisma.campaign.delete({ where: { id } });
 }

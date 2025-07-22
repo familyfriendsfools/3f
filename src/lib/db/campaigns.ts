@@ -1,12 +1,17 @@
-import { PrismaClient, type Prisma } from '../../generated/prisma';
+import { PrismaClient, type Prisma } from "../../generated/prisma";
 
 const prisma = new PrismaClient();
 
-export async function createCampaign(data: Prisma.CampaignUncheckedCreateInput) {
+export async function createCampaign(
+  data: Prisma.CampaignUncheckedCreateInput
+) {
   return prisma.campaign.create({ data });
 }
 
-export async function updateCampaign(id: string, data: Prisma.CampaignUncheckedUpdateInput) {
+export async function updateCampaign(
+  id: string,
+  data: Prisma.CampaignUncheckedUpdateInput
+) {
   return prisma.campaign.update({
     where: { id },
     data,
@@ -33,6 +38,6 @@ export async function listCampaignsByUser(userId: string) {
       businessSubarea: true,
       investments: true,
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 }
