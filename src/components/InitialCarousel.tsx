@@ -62,7 +62,7 @@ export default function InitialCarousel() {
 
 
     const handleStartCampaign = () => {
-        router.push("/createCampaign");
+        router.push("/create-campaign");
     };
 
     return (
