@@ -1,12 +1,23 @@
-'use server';
-import { type Prisma } from '../generated/prisma';
-import { createInvestment, getInvestment, updateInvestment, listInvestmentsByCampaign, listUserInvestments } from '../lib/db/investments';
+"use server";
+import { type Prisma } from "../generated/prisma";
+import {
+  createInvestment,
+  getInvestment,
+  updateInvestment,
+  listInvestmentsByCampaign,
+  listUserInvestments,
+} from "../lib/db/investments";
 
-export async function createInvestmentAction(data: Prisma.InvestmentUncheckedCreateInput) {
+export async function createInvestmentAction(
+  data: Prisma.InvestmentUncheckedCreateInput
+) {
   return createInvestment(data);
 }
 
-export async function updateInvestmentAction(id: string, data: Prisma.InvestmentUncheckedUpdateInput) {
+export async function updateInvestmentAction(
+  id: string,
+  data: Prisma.InvestmentUncheckedUpdateInput
+) {
   return updateInvestment(id, data);
 }
 

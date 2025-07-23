@@ -1,4 +1,4 @@
-import { PrismaClient, type Prisma } from '../../generated/prisma';
+import { PrismaClient, type Prisma } from "../../generated/prisma";
 
 const prisma = new PrismaClient();
 
@@ -6,7 +6,10 @@ export async function createUser(data: Prisma.UserUncheckedCreateInput) {
   return prisma.user.create({ data });
 }
 
-export async function updateUser(id: string, data: Prisma.UserUncheckedUpdateInput) {
+export async function updateUser(
+  id: string,
+  data: Prisma.UserUncheckedUpdateInput
+) {
   return prisma.user.update({
     where: { id },
     data,

@@ -1,14 +1,11 @@
 enum QuestionE {
-    input= "input",
+  input = "input",
 }
 
 enum ElementTypeE {
-    numeric= "number",
-    percent= "percent",
-    text= "text",
+  numeric = "number",
+  percent = "percent",
+  text = "text",
 }
 
-export {
-    QuestionE,
-    ElementTypeE,
-}
+export { QuestionE, ElementTypeE };

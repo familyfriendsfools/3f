@@ -1,5 +1,5 @@
-import { PrismaClient } from '../../src/generated/prisma';
-import { faker } from '@faker-js/faker';
+import { PrismaClient } from "../../src/generated/prisma";
+import { faker } from "@faker-js/faker";
 
 export async function seedUsers(prisma: PrismaClient, count = 5) {
   const users = [];
