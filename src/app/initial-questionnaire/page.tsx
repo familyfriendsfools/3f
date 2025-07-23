@@ -1,9 +1,10 @@
 "use client";
-import InitialQuestionnaire from "@/components/initial-questionnaire";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function createCampaign() {
+import InitialQuestionnaire from "@/components/initial-questionnaire";
+
+export default function InitialQuestionnairePage() {
   return (
     <div className="grid lg:min-h-screen lg:grid-cols-2 items-center">
       <div

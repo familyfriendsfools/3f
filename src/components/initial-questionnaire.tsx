@@ -1,4 +1,6 @@
 "use client";
+import type { InitialQuestionnaireAnswers } from "@/state/index";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -6,9 +8,9 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useAtom } from "jotai";
 
-import { initialQuestionnaireQuestions } from "@/lib/data/initial-questionnaire";
+import { initialQuestionnaireQuestions } from "@/lib/data/initial-questionnaire-questions";
 import { inferCenarioFromAnswers } from "@/lib/utils/infer-scenario";
-import { initialQuestionnaireAtom, InitialQuestionnaireAnswers } from "@/state/index";
+import { initialQuestionnaireAtom } from "@/state/index";
 
 
 export default function InitialQuestionnaire() {
