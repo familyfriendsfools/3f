@@ -1,8 +1,9 @@
 import React from "react";
+import { generateEditablePDF } from "@/utils/pdf-generator";
 
 import { useRouter } from "next/navigation";
 
-function DetailsPreview({ data, onEdit }) {
+function DetailsPreview({ data, onEdit }: { data: any, onEdit: () => void }) {
   const handleCreateCampaign = async () => {
     // Se não tiver userId, atribui um temporário
     const payload = {
@@ -24,6 +25,8 @@ function DetailsPreview({ data, onEdit }) {
       const result = await res.json();
       alert("Campaign created successfully!");
       console.log(result.campaign);
+
+
     } catch (err) {
       console.error("Erro ao criar campanha:", err);
     }
@@ -32,12 +35,8 @@ function DetailsPreview({ data, onEdit }) {
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold">Preview</h2>
-      <p>
-        <strong>Title:</strong> {data.title}
-      </p>
-      <p>
-        <strong>Description:</strong> {data.description}
-      </p>
+      <p><strong>Title:</strong> {data.title}</p>
+      <p><strong>Description:</strong> {data.description}</p>
       {data.picture && (
         <img
           src={URL.createObjectURL(data.picture)}
@@ -52,11 +51,9 @@ function DetailsPreview({ data, onEdit }) {
           className="w-100 h-auto"
         />
       )}
-      {data.urls?.map((url, index) => (
+      {data.urls?.map((url: string, index: number) => (
         <div key={index} className="flex flex-col space-y-1">
-          <a href={url} target="_blank">
-            <strong>URL {index + 1}:</strong> {url}
-          </a>
+          <a href={url} target="_blank"><strong>URL {index + 1}:</strong> {url}</a>
         </div>
       ))}
       <button
@@ -71,6 +68,13 @@ function DetailsPreview({ data, onEdit }) {
       >
         Create Campaign
       </button>
+      <button
+        onClick={() => generateEditablePDF(data)}
+        className="bg-green-600 text-white px-4 py-2 rounded"
+      >
+        📄 Gerar PDF Contrato
+      </button>
+
     </div>
   );
 }

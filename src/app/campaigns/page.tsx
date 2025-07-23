@@ -37,7 +37,7 @@ export default async function CampaignsPage() {
           </h2>
 
           <div className="grid gap-6">
-            {campaigns.map(c => (
+            {campaigns.map((c) => (
               <div
                 key={c.id}
                 className="flex items-start gap-4 bg-white shadow-md p-4 rounded"
@@ -65,9 +65,12 @@ export default async function CampaignsPage() {
         </section>
 
         <div className="mt-6">
-          <Link href="/createCampaign">
+          <Link href="/create-campaign">
             <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded shadow">
               Start a Campaign
+            </button>
+            <button className="bg-orange-500 text-white px-3 py-1 rounded">
+              View campaign
             </button>
           </Link>
         </div>
