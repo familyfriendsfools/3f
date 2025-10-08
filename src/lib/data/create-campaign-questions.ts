@@ -4,23 +4,23 @@ export const createCampaignQuestions = [
     type: "group",
     fields: [
       { key: "email", type: "email", required: true, title: "Email", placeholder: "exemplo@email.com" },
-      { key: "nome", type: "text", required: true, title: "Nome da iniciativa", description: "O nome da iniciativa que queres criar", placeholder: "Exemplo: 'Minha Empresa'" },
-      { key: "tipo", type: "select", required: true, options: ["Produto", "Serviço", "Subscrição, clube, comunidade, membership", "Plataforma, marketplace", "Licenciamento, franquia", "Aluguer, leasing, rental", "Economia colaborativa, compartilhada", "Publicidade, marketing de recomendação", "Economia circular, impacto social"], title: "Tipo de negócio", description: "Escolhe a opção que melhor caracteriza o teu projecto", placeholder: "Seleciona uma opção" },
+      { key: "name", type: "text", required: true, title: "Nome da iniciativa", description: "O nome da iniciativa que queres criar", placeholder: "Exemplo: 'Minha Empresa'" },
+      { key: "businessType", type: "select", required: true, options: ["Produto", "Serviço", "Subscrição, clube, comunidade, membership", "Plataforma, marketplace", "Licenciamento, franquia", "Aluguer, leasing, rental", "Economia colaborativa, compartilhada", "Publicidade, marketing de recomendação", "Economia circular, impacto social"], title: "Tipo de negócio", description: "Escolhe a opção que melhor caracteriza o teu projecto", placeholder: "Seleciona uma opção" },
     ],
     required: true,
     hasTip: false,
   },
   {
-    key: "area",
+    key: "businessArea",
     type: "cascading",
     title: "Área de negócio",
     description: "Qual é a área em que pretendes desenvolver o teu projecto?",
-    fields: ["area", "subarea"],
+    fields: ["businessArea", "businessSubarea"],
     required: true,
     hasTip: false,
   },
   {
-    key: "estagio",
+    key: "businessStage",
     title: "Estágio da iniciativa",
     description: "Qual o estágio do teu projecto?",
     type: "radio",
@@ -29,7 +29,7 @@ export const createCampaignQuestions = [
     hasTip: false,
   },
   {
-    key: "descricao",
+    key: "description",
     type: "textarea",
     title: "Descrição",
     description: "Conta a tua história e partilha o que achares relevante para contextualizar os teus amigos e família no teu projecto",
@@ -39,7 +39,7 @@ export const createCampaignQuestions = [
     tipName: "descriptionTip"
   },
   {
-    key: "valor",
+    key: "targetValue",
     type: "number",
     title: "Valor alvo",
     placeholder: "Coloca um valor numérico (€)",

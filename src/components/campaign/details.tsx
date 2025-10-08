@@ -1,10 +1,8 @@
 import React from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { DynamicURLInputs } from "@/components/dinamicUrl";
 import { useAtom } from "jotai";
 import { formAtom } from "@/state";
-import { Textarea } from "@/components/ui/textarea";
+
 
 function Details() {
   const [form, setForm] = useAtom(formAtom);
@@ -19,8 +17,8 @@ function Details() {
   return (
     <div className="space-y-4">
       <div className="flex flex-col space-y-1">
-        <Label htmlFor="title">Title</Label>
-        <Input
+        <label htmlFor="title">Title</label>
+        <input
           id="title"
           type="text"
           value={form.title || ""}
@@ -28,8 +26,8 @@ function Details() {
         />
       </div>
       <div className="flex flex-col space-y-1">
-        <Label htmlFor="description">Description</Label>
-        <Textarea
+        <label htmlFor="description">Description</label>
+        <textarea
           id="description"
           className="resize-none h-24 w-100"
           value={form.description || ""}
@@ -37,21 +35,21 @@ function Details() {
         />
       </div>
       <div className="flex flex-col space-y-1">
-        <Label htmlFor="picture">Picture</Label>
-        <Input
+        <label htmlFor="picture">Picture</label>
+        <input
           id="picture"
           type="file"
           accept="image/*"
-          onChange={e => handleInputs("picture", e.target.files[0])}
+          onChange={e => handleInputs("picture", e.target?.files?.[0])}
         />
       </div>
       <div className="flex flex-col space-y-1">
-        <Label htmlFor="video">Video</Label>
-        <Input
+        <label htmlFor="video">Video</label>
+        <input
           id="video"
           type="file"
           accept="video/*"
-          onChange={e => handleInputs("video", e.target.files[0])}
+          onChange={e => handleInputs("video", e.target?.files?.[0])}
         />
       </div>
       <DynamicURLInputs />

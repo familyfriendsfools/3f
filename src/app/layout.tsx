@@ -1,22 +1,27 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Playfair_Display, Noto_Serif_Display, Open_Sans
+} from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
+import { Providers } from "./providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfair = Playfair_Display({
   subsets: ["latin"],
+  variable: "--font-title",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const notoSerif = Noto_Serif_Display({
   subsets: ["latin"],
+  variable: "--font-header",
 });
 
-export const metadata: Metadata = {
-  title: "Family, Friends & Fools",
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
+});
+
+export const metadata = {
+  title: "3F Community",
   description: "Family, Friends & Fools",
 };
 
@@ -28,9 +33,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
+        className={`${playfair.variable} ${notoSerif.variable} ${openSans.variable} antialiased h-full`}
       >
-        <main className="h-full">{children}</main>
+        <Providers>
+          <main className="h-full">{children}</main>
+        </Providers>
       </body>
     </html>
   );
