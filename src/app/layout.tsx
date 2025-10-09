@@ -4,6 +4,9 @@ import {
 import "./globals.css";
 import { ReactNode } from "react";
 import { Providers } from "./providers";
+import { ensurePrismaIsBundled } from "@/lib/ensure-prisma-bundled";
+
+//ensurePrismaIsBundled();
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
