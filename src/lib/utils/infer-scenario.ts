@@ -9,23 +9,23 @@ export const inferCenarioFromAnswers = (a: InitialQuestionnaireAnswers): "ONE" |
 
   const cenarioRules = {
     "ONE": {
-      motivacao: [
+      motivation: [
         "Liberdade financeira imediata",
         "Realizar um sonho pessoal",
         "Crescer e escalar rapidamente",
       ],
-      desafio: [
+      challenge: [
         "Transformar a minha ideia num produto/serviço viável",
         "Ter financiamento para começar a operar",
         "Encontrar e reter primeiros clientes",
       ],
-      clientes: [
+      customers: [
         "Nenhum",
         "Até 10",
         "De 10 a 100",
         "Centenas ou milhares",
       ],
-      estagio: [
+      businessStage: [
         "Tenho um conceito/ideia por desenvolver",
         "Protótipo ou MVP inicial em teste",
         "Produto validado com primeiros clientes pagantes",
@@ -33,37 +33,37 @@ export const inferCenarioFromAnswers = (a: InitialQuestionnaireAnswers): "ONE" |
       ],
     },
     "TWO": {
-      motivacao: [
+      motivation: [
         "Impactar positivamente a sociedade",
         "Crescer e escalar rapidamente",
       ],
-      desafio: [
+      challenge: [
         "Encontrar e reter primeiros clientes",
         "Melhorar/organizar processos internos e/ou equipa",
         "Escalar para novos mercados rapidamente",
       ],
-      clientes: [
+      customers: [
         "Centenas ou milhares",
       ],
-      estagio: [
+      businessStage: [
         "Produto validado com primeiros clientes pagantes",
         "Operação consolidada, em fase de crescimento",
         "Preciso de rever modelo de negócio e/ou escalar para não fechar",
       ],
     },
     "THREE": {
-      motivacao: [
+      motivation: [
         "Liberdade financeira imediata",
         "Realizar um sonho pessoal",
       ],
-      desafio: [
+      challenge: [
         "Ter uma ideia",
         "Transformar a minha ideia num produto/serviço viável",
       ],
-      clientes: [
+      customers: [
         "Nenhum",
       ],
-      estagio: [
+      businessStage: [
         "Não tenho nada ainda, apenas a ambição",
       ],
     },
@@ -71,7 +71,7 @@ export const inferCenarioFromAnswers = (a: InitialQuestionnaireAnswers): "ONE" |
 
   // Count how many fields match per scenario
   for (const scenario in cenarioRules) {
-    for (const key of ["motivacao", "desafio", "clientes", "estagio"] as const) {
+    for (const key of ["motivation", "challenge", "customers", "businessStage"] as const) {
       if (cenarioRules[scenario as keyof typeof cenarioRules][key].includes(a[key] ?? "")) {
         matches[scenario as keyof typeof matches]++;
       }

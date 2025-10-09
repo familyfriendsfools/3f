@@ -2,7 +2,7 @@ export const initialQuestionnaireQuestions = [
   {
     title: "Qual a tua maior motivação para empreender?",
     type: "radio",
-    key: "motivacao",
+    key: "motivation",
     options: [
       "Liberdade financeira imediata",
       "Realizar um sonho pessoal",
@@ -13,7 +13,7 @@ export const initialQuestionnaireQuestions = [
   {
     title: "Principal desafio actual?",
     type: "radio",
-    key: "desafio",
+    key: "challenge",
     options: [
       "Ter uma ideia",
       "Transformar a minha ideia num produto/serviço viável",
@@ -26,13 +26,13 @@ export const initialQuestionnaireQuestions = [
   {
     title: "Quantos clientes pagantes já tens?",
     type: "radio",
-    key: "clientes",
+    key: "customers",
     options: ["Nenhum", "Até 10", "De 10 a 100", "Centenas ou milhares"],
   },
   {
     title: "Em que estágio está a tua solução?",
     type: "radio",
-    key: "estagio",
+    key: "businessStage",
     options: [
       "Não tenho nada ainda, apenas a ambição",
       "Tenho um conceito/ideia por desenvolver",

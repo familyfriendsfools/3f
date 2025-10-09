@@ -1,10 +1,10 @@
 import { atomWithStorage } from "jotai/utils";
 
 export type InitialQuestionnaireAnswers = {
-  motivacao?: string;
-  desafio?: string;
-  clientes?: string;
-  estagio?: string;
+  motivation?: string;
+  challenge?: string;
+  customers?: string;
+  businessStage?: string;
   email?: string;
 };
 
