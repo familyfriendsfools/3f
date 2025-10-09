@@ -102,15 +102,16 @@ export default function UpdateCampaignForm({ campaign }: { campaign: Campaign })
         <div className="grid xl:grid-cols-3 gap-6">
           <label className="flex flex-col gap-2 items-center">
             <span className="font-semibold text-dark-orange text-lg">Nome da Iniciativa</span>
-            <input name="name" type="text" value={form.name} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base text-black font-normal" />
+            <input required name="name" type="text" value={form.name} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base text-black font-normal" />
           </label>
           <label className="flex flex-col gap-2 items-center">
             <span className="text-center font-semibold text-dark-orange text-lg">Descrição</span>
-            <input name="description" type="textarea" value={form.description} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base text-black font-normal" />
+            <input required name="description" type="textarea" value={form.description} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base text-black font-normal" />
           </label>
           <div className="flex flex-col gap-2 items-center">
             <p className="font-semibold text-dark-orange text-lg">Estágio da Iniciativa</p>
             <select
+              required
               name="businessStage"
               value={form.businessStage}
               onChange={handleChange}
@@ -128,6 +129,7 @@ export default function UpdateCampaignForm({ campaign }: { campaign: Campaign })
           <div className="flex flex-col gap-2 items-center">
             <p className="font-semibold text-dark-orange text-lg">Modelo de Negócio</p>
             <select
+              required
               name="modelType"
               value={form.modelType}
               onChange={handleChange}
@@ -143,6 +145,7 @@ export default function UpdateCampaignForm({ campaign }: { campaign: Campaign })
           <div className="flex flex-col gap-2 items-center">
             <p className="font-semibold text-dark-orange text-lg">Área</p>
             <select
+              required
               name="businessArea"
               value={form.businessArea}
               onChange={(e) => {
@@ -160,6 +163,7 @@ export default function UpdateCampaignForm({ campaign }: { campaign: Campaign })
           <div className="flex flex-col gap-2 items-center">
             <p className="font-semibold text-dark-orange text-lg">Sub-área</p>
             <select
+              required
               name="businessSubarea"
               value={form.businessSubarea}
               onChange={(e) => handleChange(e)}
@@ -176,29 +180,29 @@ export default function UpdateCampaignForm({ campaign }: { campaign: Campaign })
         <div className="grid xl:grid-cols-3 gap-6">
           <label className="flex flex-col gap-2 items-center">
             <span className="font-semibold text-dark-orange text-lg">Valor alvo</span>
-            <input name="targetValue" type="number" value={form.targetValue} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base" />
+            <input required name="targetValue" type="number" value={form.targetValue} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base" />
           </label>
 
           <label className="flex flex-col gap-2 items-center">
             <span className="font-semibold text-dark-orange text-lg">Plano de Capital</span>
-            <input name="capitalPlan" value={form.capitalPlan} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base" />
+            <input required name="capitalPlan" value={form.capitalPlan} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base" />
           </label>
 
           <label className="flex flex-col gap-2 items-center">
             <span className="font-semibold text-dark-orange text-lg">Período de Carência</span>
-            <input name="gracePeriod" type="number" value={form.gracePeriod} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base" />
+            <input required name="gracePeriod" type="number" value={form.gracePeriod} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base" />
           </label>
         </div>
 
         <div className="grid xl:grid-cols-2 gap-6">
           <label className="flex flex-col gap-2 items-center">
             <span className="font-semibold text-dark-orange text-lg">Período de Reembolso</span>
-            <input name="repaymentPeriod" type="number" value={form.repaymentPeriod} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base" />
+            <input required name="repaymentPeriod" type="number" value={form.repaymentPeriod} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base" />
           </label>
 
           <label className="flex flex-col gap-2 items-center">
             <span className="font-semibold text-dark-orange text-lg">Unidade de Reembolso</span>
-            <select name="repaymentUnit" value={form.repaymentUnit} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base select-placeholder">
+            <select required name="repaymentUnit" value={form.repaymentUnit} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base select-placeholder">
               {Object.values(RepaymentUnit).map((opt: RepaymentUnit) => (
                 <option key={opt} value={opt}>{repaymentUnitReverseMap[opt as keyof typeof repaymentUnitReverseMap]}</option>
               ))}
@@ -209,7 +213,7 @@ export default function UpdateCampaignForm({ campaign }: { campaign: Campaign })
         <div className="grid xl:grid-cols-3 gap-6">
           <label className="flex flex-col gap-2 items-center">
             <span className="font-semibold text-dark-orange text-lg">Frequência de Pagamento</span>
-            <select name="paymentFrequency" value={form.paymentFrequency} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base select-placeholder">
+            <select required name="paymentFrequency" value={form.paymentFrequency} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base select-placeholder">
               {Object.values(PaymentFrequency).map((opt: PaymentFrequency) => (
                 <option key={opt} value={opt}>{paymentFrequencyReverseMap[opt as keyof typeof paymentFrequencyReverseMap]}</option>
               ))}
@@ -218,7 +222,7 @@ export default function UpdateCampaignForm({ campaign }: { campaign: Campaign })
 
           <label className="flex flex-col gap-2 items-center">
             <span className="font-semibold text-dark-orange text-lg">Tipo de Juros</span>
-            <select name="interestType" value={form.interestType} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base select-placeholder">
+            <select required name="interestType" value={form.interestType} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base select-placeholder">
               {Object.values(InterestType).map((opt: InterestType) => (
                 <option key={opt} value={opt}>{interestTypeReverseMap[opt as keyof typeof interestTypeReverseMap]}</option>
               ))}
@@ -227,7 +231,7 @@ export default function UpdateCampaignForm({ campaign }: { campaign: Campaign })
 
           <label className="flex flex-col gap-2 items-center">
             <span className="font-semibold text-dark-orange text-lg">Taxa de Juros</span>
-            <input type="number" name="interestRate" value={form.interestRate} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base" />
+            <input required type="number" name="interestRate" value={form.interestRate} onChange={handleChange} className="w-full px-4 py-2 rounded-2xl border-2 border-dark-orange text-center text-base" />
           </label>
 
           <div className="flex items-center gap-2">

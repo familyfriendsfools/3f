@@ -1,9 +1,9 @@
 import Client from "./client";
-import type { ApiPayload } from "./types";
+import type { ApiPayload } from "./type";
 import { headers } from "next/headers";
 
 async function getData(slug: string): Promise<ApiPayload> {
-  const h = headers();
+  const h = await headers();
   const host = h.get("x-forwarded-host") ?? h.get("host");
   const proto = h.get("x-forwarded-proto") ?? "http";
   const baseUrl = `${proto}://${host}`;
@@ -15,7 +15,10 @@ async function getData(slug: string): Promise<ApiPayload> {
   return res.json();
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const data = await getData(params.slug);
+type Params = Promise<{ slug: string }>
+
+export default async function Page({ params }: { params: Params }) {
+  const { slug } = await params;
+  const data = await getData(slug);
   return <Client data={data} />;
 }

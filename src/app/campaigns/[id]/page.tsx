@@ -4,12 +4,11 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { getCampaignAction } from "@/actions/campaigns";
 
-export default async function EditCampaignPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const campaign = await getCampaignAction(params.id);
+type Params = Promise<{ id: string }>
+
+export default async function EditCampaignPage({ params }: { params: Params }) {
+  const { id } = await params;
+  const campaign = await getCampaignAction(id);
   if (!campaign) return notFound();
 
   return (

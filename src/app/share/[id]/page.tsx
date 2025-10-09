@@ -4,12 +4,15 @@ import { formatCurrency } from "@/lib/formatters";
 import { businessStageReverseMap, interestTypeReverseMap, modelTypeReverseMap, paymentFrequencyReverseMap, repaymentUnitReverseMap } from "@/lib/utils/mapping";
 import Footer from "@/components/footer";
 
+type Params = Promise<{ id: string }>
+
 export default async function ShareCampaignPage({
   params,
 }: {
-  params: { id: string };
+  params: Params;
 }) {
-  const campaign = await getCampaignAction(params.id);
+  const { id } = await params;
+  const campaign = await getCampaignAction(id);
   if (!campaign) return notFound();
 
   const {
