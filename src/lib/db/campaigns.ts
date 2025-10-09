@@ -1,6 +1,5 @@
-import { PrismaClient, type Prisma } from "@/generated/prisma";
-
-const prisma = new PrismaClient();
+import type { Prisma } from "@/generated/prisma";
+import prisma from '@/lib/prisma'
 
 export async function createCampaign(
   data: Prisma.CampaignUncheckedCreateInput
