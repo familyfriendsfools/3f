@@ -60,6 +60,7 @@
     "typescript": "^5"
   },
   "optionalDependencies": {
-    "@tailwindcss/oxide-linux-x64-gnu": "^0.0.0-insiders.dec6c8c"
+    "@tailwindcss/oxide-linux-x64-gnu": "^0.0.0-insiders.dec6c8c",
+    "lightningcss-linux-x64-gnu": "^1.30.2"
   }
 }
