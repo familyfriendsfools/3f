@@ -31,7 +31,7 @@ export default async function ShareCampaignPage({
     investments,
   } = campaign;
 
-  const investedAmount = investments?.reduce((sum, i) => sum + i.amount, 0);
+  const investedAmount = investments?.reduce((sum: any, i: { amount: any; }) => sum + i.amount, 0);
   const progress = Math.min((investedAmount / targetValue) * 100, 100);
 
   return (
