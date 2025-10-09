@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 import { Providers } from "./providers";
 import { ensurePrismaIsBundled } from "@/lib/ensure-prisma-bundled";
 
-//ensurePrismaIsBundled();
+ensurePrismaIsBundled();
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
