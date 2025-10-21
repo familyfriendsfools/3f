@@ -15,7 +15,11 @@ const adapter = new PrismaNeon({ connectionString });
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
-const prisma = globalForPrisma.prisma ?? new PrismaClient({ adapter });
+const prisma = globalForPrisma.prisma ?? new PrismaClient({
+  adapter,
+  log: [],
+  errorFormat: 'minimal',
+});
 
 if (process.env.NODE_ENV === 'development') globalForPrisma.prisma = prisma;
 
