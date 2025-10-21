@@ -3,7 +3,7 @@ import {
   InterestType,
   PaymentFrequency,
   RepaymentUnit,
-} from "../../src/generated/prisma";
+} from "@prisma/client";
 import { faker } from "@faker-js/faker";
 
 export async function seedInvestments(prisma: PrismaClient) {
