@@ -2,7 +2,7 @@ import type { Prisma } from "@prisma/client";
 import prisma from '@/lib/prisma'
 
 export async function createUser(data: Prisma.UserUncheckedCreateInput) {
-  return prisma.user.create({ data });
+  return prisma.user.create({ data, select: { id: true } });
 }
 
 export async function updateUser(
