@@ -9,7 +9,7 @@ import {
   CampaignStatus,
   BusinessArea,
   BusinessSubarea,
-} from "../../src/generated/prisma";
+} from "@prisma/client";
 import { faker } from "@faker-js/faker";
 
 const areaToSubareas: Record<BusinessArea, BusinessSubarea[]> = {

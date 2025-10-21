@@ -1,5 +1,5 @@
 "use server";
-import { type Prisma } from "../generated/prisma";
+import { type Prisma } from "@prisma/client";
 import {
   createUser,
   getUser,

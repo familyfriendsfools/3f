@@ -1,9 +1,7 @@
-import { PrismaClient } from "../src/generated/prisma";
+import prisma from "@/lib/prisma";
 import { seedUsers } from "./seeds/users";
 import { seedCampaigns } from "./seeds/campaigns";
 import { seedInvestments } from "./seeds/investments";
-
-const prisma = new PrismaClient();
 
 async function main() {
   console.log("🔥 Clearing DB...");

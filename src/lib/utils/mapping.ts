@@ -1,4 +1,4 @@
-import { BusinessArea, BusinessSubarea } from "@/generated/prisma";
+import { BusinessArea, BusinessSubarea } from "@prisma/client";
 
 export const businessTypeMap: Record<string, "PRODUCT" | "SERVICE" | "SUBSCRIPTION" | "PLATFORM" | "LICENSING" | "RENTAL" | "SHARING" | "ADVERTISING" | "IMPACT"> = {
   "Produto": "PRODUCT",

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { Copy, Check } from "lucide-react";
 
-import { Campaign, ModelType, RepaymentUnit, PaymentFrequency, InterestType, BusinessType, BusinessSubarea, BusinessArea, BusinessStage, CampaignStatus } from "@/generated/prisma";
+import { Campaign, ModelType, RepaymentUnit, PaymentFrequency, InterestType, BusinessType, BusinessSubarea, BusinessArea, BusinessStage, CampaignStatus } from "@prisma/client";
+
 import { updateCampaignAction } from "@/actions/campaigns";
 import { useRouter } from "next/navigation";
 import { businessAreaReverseMap, businessStageReverseMap, businessSubareaReverseMap, businessTypeReverseMap, interestTypeReverseMap, modelTypeReverseMap, paymentFrequencyReverseMap, repaymentUnitReverseMap } from "@/lib/utils/mapping";

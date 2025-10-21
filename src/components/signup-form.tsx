@@ -1,5 +1,5 @@
 "use client";
-import type { BusinessArea, BusinessStage, BusinessSubarea, BusinessType, InterestType, PaymentFrequency, ProductPlan, RepaymentUnit } from "@/generated/prisma";
+import type { BusinessArea, BusinessStage, BusinessSubarea, BusinessType, InterestType, PaymentFrequency, ProductPlan, RepaymentUnit } from "@prisma/client";
 
 import { useState } from "react";
 import { useAtom } from "jotai";
