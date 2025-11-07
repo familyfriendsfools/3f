@@ -8,15 +8,14 @@ const AboutUs: FC = () => {
         <section className="py-20 bg-white">
             <div className="max-w-[1246px] mx-auto px-4">
                 
-                {/* --- 1. SEÇÃO INICIAL: QUEM SOMOS E DIFERENÇA (Conteúdo Existente) --- */}
                 <div className="text-center mb-16">
                     <h2 className="text-dark-gray">
                         About Us and Our Mission
                     </h2>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-16 mb-20"> {/* Adicionei mb-20 para espaçar */}
-                    {/* COLUNA ESQUERDA: QUEM SOMOS */}
+                <div className="grid md:grid-cols-2 gap-16 mb-20"> 
+
                     <div>
                         <h3 className="text-dark-gray mb-4 border-b pb-2 border-dark-orange">
                             Who We Are and Why We Exist
@@ -30,7 +29,6 @@ const AboutUs: FC = () => {
                         </ul>
                     </div>
 
-                    {/* COLUNA DIREITA: DIFERENÇA */}
                     <div>
                         <h3 className="text-dark-gray mb-4 border-b pb-2 border-dark-orange">
                             What is the Difference? (Banks vs. Crowdfunding)
@@ -77,7 +75,6 @@ const AboutUs: FC = () => {
                     </p>
                 </div>
 
-                {/* Imagem do Fluxo de Solução (Solution.png) */}
                 <div className="mb-10">
                     <Image
                         src="/Solution.png" 
@@ -88,7 +85,7 @@ const AboutUs: FC = () => {
                     />
                 </div>
 
-                {/* Fluxo Detalhado (Para quem quiser mais detalhes) */}
+
                 <div className="mt-16 text-center">
                     <h3 className="text-dark-gray mb-6">Detailed Process Flow</h3>
                      <Image
