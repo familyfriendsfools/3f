@@ -432,7 +432,6 @@ export function inferCampaignFundingTip({ businessArea, businessSubarea, busines
   };
 
   const op = matchOption();
-  console.log(op, letter);
   if (!op || !fundingTips[op]?.[letter]) return null;
 
   return fundingTips[op]?.[letter];

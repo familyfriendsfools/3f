@@ -218,7 +218,7 @@ const HeroHome: React.FC = () => {
     <section id="hero-homepage" className="grid lg:grid-cols-2 xl:grid-cols-auto-auto bg-dark-orange px-6 lg:px-20 pt-10 lg:pt-20">
       <div className="flex flex-col gap-y-10">
         <h1>3F Community</h1>
-        <h2>Family, Friends & Fans</h2>
+        <h2>Family, Friends & Fun</h2>
         <ol className="flex flex-col gap-y-4">
           <li className="grid grid-cols-auto-1fr items-center gap-x-4">
             <CircleCheckBig size={20} />
@@ -260,7 +260,7 @@ export default function Home() {
       <HeroHome />
       <OurMission />
       <Steps />
-      <ProductPlans />
+      {/*<ProductPlans />*/}
       <BottomCta />
       <Footer />
     </div>

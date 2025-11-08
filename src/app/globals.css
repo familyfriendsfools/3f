@@ -57,4 +57,10 @@
   h6 {
     @apply text-sm lg:text-base;
   }
+
+  @keyframes fadein {
+    to {
+      opacity: 1;
+    }
+  }
 }
