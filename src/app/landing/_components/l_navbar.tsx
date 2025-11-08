@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Header() {
+export default function Navbar() {
   return (
     <nav className="w-full flex justify-between items-center bg-dark-gray py-4 lg:px-20 px-6">
       <Link className="lg:hidden" href="/">

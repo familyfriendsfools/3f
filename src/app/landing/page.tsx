@@ -1,22 +1,17 @@
-import Header from '../../components/header';
-import Hero from '../../components/hero';
-import AboutUs from '@/components/about-us';
-import Summit from '@/components/summit-footer';
+import Hero from './_components/l_hero';
+import AboutUs from './_components/l_about-us';
+import Footer from './_components/l_footer';
+import Navbar from './_components/l_navbar';
 
 export default function LandingPage() {
   return (
     <>
-      <Header />
-      
+      <Navbar />
       <main>
         <Hero />
-        
-        <AboutUs/>
-
-        {/*Maybe add some testemonials */}
+        <AboutUs />
       </main>
-      
-       <Summit/>
+      <Footer />
     </>
   )
 }

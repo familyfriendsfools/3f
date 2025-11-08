@@ -1,8 +1,7 @@
-import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 
-export default function Summit() {
+export default function Footer() {
   return (
     <footer className="w-full flex justify-between items-start lg:items-center flex-wrap bg-dark-gray py-4 lg:px-20 px-6">
       <div className="flex flex-col lg:flex-row gap-y-2 gap-x-4 lg:gap-x-8">
