@@ -43,7 +43,7 @@ export default function DemoPlayPage() {
     <main className="relative h-dvh w-dvw overflow-hidden bg-black">
       <video
         ref={videoRef}
-        src="/demo/3f-mvp-demo-4k.mp4"
+        src="https://ujhnvqbnflcpiwdq.public.blob.vercel-storage.com/3f-mvp-demo-4k.mp4"
         autoPlay
         muted={muted}
         loop
