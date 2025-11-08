@@ -11,6 +11,9 @@ import { createCampaignQuestions } from "@/lib/data/create-campaign-questions";
 import { businessAreas } from "@/lib/data/business-areas";
 import { inferCampaignDescriptionTip } from "@/lib/utils/infer-campaign-description-tip";
 import { inferCampaignFundingTip } from "@/lib/utils/infer-campaign-funding-tip";
+import { businessTypeMap, businessStageMap, businessTypeReverseMap, businessStageReverseMap, businessAreaMap, businessSubareaMap, businessAreaReverseMap, businessSubareaReverseMap } from "@/lib/utils/mapping";
+
+import SignupForm from "./signup-form";
 
 type Field = {
   key: keyof CreateCampaignAnswers;
@@ -41,20 +44,36 @@ export default function CampaignQuestionnaire() {
   const [initial] = useAtom(initialQuestionnaireAtom);
   const [form, setForm] = useAtom(createCampaignAtom);
 
-
   // Pre-fill logic
   useEffect(() => {
     setForm((prev) => ({
       ...prev,
       email: prev.email || initial.email,
-      estagio: prev.estagio || initial.estagio,
+      businessStage: businessStageMap[prev.businessStage as keyof typeof businessStageMap] || businessStageMap[initial.businessStage as keyof typeof businessStageMap],
     }));
   }, [initial]);
 
   const step = createCampaignQuestions[currentIndex] as Question;
-
   const update = (key: string, value: string) => {
-    setForm((prev) => ({ ...prev, [key]: value }));
+    let mappedValue = value;
+
+    if (key === "businessType") {
+      mappedValue = businessTypeMap[value as keyof typeof businessTypeMap] || value;
+    }
+
+    if (key === "businessStage") {
+      mappedValue = businessStageMap[value as keyof typeof businessStageMap] || value;
+    }
+
+    if (key === "businessArea") {
+      mappedValue = businessAreaMap[value as keyof typeof businessAreaMap] || value;
+    }
+
+    if (key === "businessSubarea") {
+      mappedValue = businessSubareaMap[form.businessArea as keyof typeof businessSubareaMap]?.[value as keyof typeof businessSubareaMap] || value;
+    }
+
+    setForm((prev) => ({ ...prev, [key]: mappedValue }));
   };
 
   // Helper function to safely get form value
@@ -67,7 +86,7 @@ export default function CampaignQuestionnaire() {
     if (step.type === "group") {
       return step?.fields?.some((f: Field) => f.required && !getFormValue(f.key));
     } else if (step.type === "cascading") {
-      return !form.area || !form.subarea;
+      return !form.businessArea || !form.businessSubarea;
     } else {
       return !getFormValue(step.key);
     }
@@ -75,19 +94,17 @@ export default function CampaignQuestionnaire() {
 
   const tips = {
     descriptionTip: inferCampaignDescriptionTip({
-      area: form.area,
-      subarea: form.subarea,
-      estagio: form.estagio,
+      businessArea: form.businessArea,
+      businessSubarea: form.businessSubarea,
+      businessStage: form.businessStage,
     }),
     fundingTip: inferCampaignFundingTip({
-      area: form.area,
-      subarea: form.subarea,
-      estagio: form.estagio,
-      tipo: form.tipo,
+      businessArea: form.businessArea,
+      businessSubarea: form.businessSubarea,
+      businessStage: form.businessStage,
+      businessType: form.businessType,
     }),
   }
-
-  console.log(tips);
 
   const [showTip, setShowTip] = useState(false);
 
@@ -131,7 +148,11 @@ export default function CampaignQuestionnaire() {
               {field.type === "select" ? (
                 <select
                   name={field.key}
-                  value={getFormValue(field.key)}
+                  value={
+                    field.key === "businessType"
+                      ? businessTypeReverseMap[getFormValue(field.key)]
+                      : getFormValue(field.key)
+                  }
                   onChange={(e) => update(field.key, e.target.value)}
                   className="w-full px-4 py-2 rounded-2xl border-2 border-orange-500 text-center text-base select-placeholder"
                   required={field.required}
@@ -159,11 +180,11 @@ export default function CampaignQuestionnaire() {
             <>
               <div className="mb-4">
                 <select
-                  name="area"
-                  value={form.area || ""}
+                  name="businessArea"
+                  value={businessAreaReverseMap[getFormValue("businessArea") as keyof typeof businessAreaReverseMap] || ""}
                   onChange={(e) => {
-                    update("area", e.target.value);
-                    update("subarea", "");
+                    update("businessArea", e.target.value);
+                    update("businessSubarea", "");
                   }}
                   className="w-full px-4 py-2 rounded-2xl border-2 border-orange-500 text-center text-base select-placeholder"
                 >
@@ -173,17 +194,17 @@ export default function CampaignQuestionnaire() {
                   ))}
                 </select>
               </div>
-              {form.area && (
+              {form.businessArea && (
                 <div className="mb-4">
                   <div className="block font-semibold mb-1">Sub-área</div>
                   <select
-                    name="subarea"
-                    value={form.subarea || ""}
-                    onChange={(e) => update("subarea", e.target.value)}
+                    name="businessSubarea"
+                    value={businessSubareaReverseMap[getFormValue("businessSubarea") as keyof typeof businessSubareaReverseMap] || ""}
+                    onChange={(e) => update("businessSubarea", e.target.value)}
                     className="w-full px-4 py-2 rounded-2xl border-2 border-orange-500 text-center text-base select-placeholder"
                   >
                     <option value="" className="text-[oklch(0.6898 0.0014 286.36)]">Seleciona uma sub-área</option>
-                    {businessAreas[form.area].map((sub) => (
+                    {businessAreas[businessAreaReverseMap[form.businessArea as keyof typeof businessAreaReverseMap] as keyof typeof businessAreas].map((sub) => (
                       <option key={sub} value={sub}>{sub}</option>
                     ))}
                   </select>
@@ -216,7 +237,11 @@ export default function CampaignQuestionnaire() {
                     name={step.key}
                     type="radio"
                     value={opt}
-                    checked={form[step.key as keyof CreateCampaignAnswers] === opt}
+                    checked={
+                      step.key === "businessStage"
+                        ? businessStageReverseMap[form[step.key as keyof CreateCampaignAnswers] as keyof typeof businessStageReverseMap] === opt
+                        : form[step.key as keyof CreateCampaignAnswers] === opt
+                    }
                     onChange={(e) => update(step.key, e.target.value)} className="peer hidden"
                   />
                   <div className="border-2 border-orange-500 rounded-2xl px-4 py-2 transition-colors peer-checked:bg-orange-500 hover:bg-orange-500 active:bg-orange-500 text-black hover:text-white">
@@ -289,7 +314,7 @@ export default function CampaignQuestionnaire() {
         </>
       ) : (
         <div>
-          <h2 className="text-2xl font-bold mb-2">Obrigado por responder ao questionário!</h2>
+          <SignupForm />
         </div>
       )}
     </div>

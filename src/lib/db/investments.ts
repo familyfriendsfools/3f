@@ -1,6 +1,6 @@
-import { PrismaClient, type Prisma } from "../../generated/prisma";
+import type { Prisma } from "@prisma/client";
+import prisma from '@/lib/prisma'
 
-const prisma = new PrismaClient();
 
 export async function createInvestment(
   data: Prisma.InvestmentUncheckedCreateInput

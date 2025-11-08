@@ -3,28 +3,17 @@
  * @see https://v0.dev/t/vBFmhDxZNgl
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 export default function Component() {
   return (
-    <Card className="max-w-2xl mx-auto p-6 sm:p-8">
-      <CardHeader>
-        <CardTitle>Upload Images</CardTitle>
-        <CardDescription>
+    <div className="max-w-2xl mx-auto p-6 sm:p-8">
+      <div className="flex flex-col gap-2">
+        <h2>Upload Images</h2>
+        <p>
           Select multiple images to upload or drag and drop them here.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+        </p>
+      </div>
+      <div className="grid gap-6">
         <form className="grid gap-6">
           <div
             className="grid gap-2 border-2 border-dashed border-muted rounded-md p-6 hover:border-primary transition-colors"
@@ -41,19 +30,19 @@ export default function Component() {
               e.stopPropagation();
             }}
           >
-            <Label htmlFor="images">Images</Label>
+            <label htmlFor="images">Images</label>
             <div className="flex items-center justify-center">
-              <Input
+              <input
                 id="images"
                 type="file"
                 multiple
                 accept="image/*,video/*"
                 className="sr-only"
               />
-              <Button variant="outline" className="w-full">
+              <button className="w-full bg-orange-500 text-white px-3 py-1 rounded-md">
                 <UploadIcon className="mr-2 h-4 w-4" />
                 Select Files
-              </Button>
+              </button>
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4">
@@ -101,15 +90,15 @@ export default function Component() {
             />
           </div>
         </form>
-      </CardContent>
-      <CardFooter>
-        <Button type="submit">Upload</Button>
-      </CardFooter>
-    </Card>
+      </div>
+      <div>
+        <button type="submit">Upload</button>
+      </div>
+    </div>
   );
 }
 
-function UploadIcon(props) {
+function UploadIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}

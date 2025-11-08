@@ -1,14 +1,17 @@
 "use server";
-import { type Prisma } from "../generated/prisma";
+import { type Prisma } from "@prisma/client";
 import {
   createUser,
   getUser,
   updateUser,
   getCampaignInvestors,
 } from "../lib/db/users";
+import bcrypt from "bcrypt";
+
 
 export async function createUserAction(data: Prisma.UserUncheckedCreateInput) {
-  return createUser(data);
+  const user = await createUser({ ...data, password: await bcrypt.hash(data.password, 10) });
+  return user.id;
 }
 
 export async function updateUserAction(

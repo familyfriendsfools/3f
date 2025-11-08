@@ -1,73 +1,67 @@
 // DynamicURLInputs.tsx
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Trash2, Plus } from "lucide-react";
-import { Label } from "@/components/ui/label";
 import { useAtom } from "jotai/index";
 import { formAtom } from "@/state";
 
 export function DynamicURLInputs() {
   const [form, setForm] = useAtom(formAtom);
-  const handleChange = (index: number, value: string) => {
-    const updatedUrls = [...form.urls];
-    updatedUrls[index] = value;
-    setForm(prev => ({
-      ...prev,
-      urls: updatedUrls,
-    }));
-  };
-  const addField = () => {
-    setForm(prev => ({
-      ...prev,
-      urls: [...prev.urls, ""],
-    }));
-  };
+  /*   const handleChange = (index: number, value: string) => {
+      const updatedUrls = [...form.urls] as string[];
+  
+      updatedUrls[index] = value;
+      setForm(prev => ({
+        ...prev,
+        urls: updatedUrls,
+      }));
+    };
+    const addField = () => {
+      setForm(prev => ({
+        ...prev,
+        urls: [...prev.urls, ""],
+      }));
+    }; */
 
-  const removeField = (index: number) => {
-    const updatedUrls = [...form.urls];
-    updatedUrls.splice(index, 1);
-    setForm(prev => ({
-      ...prev,
-      urls: updatedUrls,
-    }));
-  };
+  /*   const removeField = (index: number) => {
+      const updatedUrls = [...form.urls] as string[];
+      updatedUrls.splice(index, 1);
+      setForm(prev => ({
+        ...prev,
+        urls: updatedUrls,
+      }));
+    }; */
 
   return (
     <div className="grid gap-4">
-      <Label className="text-base">URLs</Label>
+      <label className="text-base">URLs</label>
 
       {form.urls.map((url, idx) => (
         <div key={idx} className="flex items-center gap-2">
-          <Input
+          <input
             type="url"
             placeholder="https://example.com"
             value={url}
-            onChange={e => handleChange(idx, e.target.value)}
+          //onChange={e => handleChange(idx, e.target.value)}
           />
           {form.urls.length > 1 && (
-            <Button
+            <button
               type="button"
-              variant="ghost"
-              size="icon"
-              onClick={() => removeField(idx)}
+            //onClick={() => removeField(idx)}
             >
               <Trash2 className="w-4 h-4 text-red-500" />
-            </Button>
+            </button>
           )}
         </div>
       ))}
 
-      <Button
+      <button
         type="button"
-        onClick={addField}
-        variant="outline"
-        size="sm"
-        className="w-fit"
+        //onClick={addField}
+        className="bg-orange-500 text-white px-3 py-1 rounded-md"
       >
         <Plus className="w-4 h-4 mr-2" />
         Add URL
-      </Button>
+      </button>
     </div>
   );
 }

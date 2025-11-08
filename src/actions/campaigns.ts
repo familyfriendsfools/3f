@@ -1,5 +1,5 @@
 "use server";
-import { type Prisma } from "../generated/prisma";
+import { type Prisma } from "@prisma/client";
 import {
   createCampaign,
   updateCampaign,
@@ -10,7 +10,8 @@ import {
 export async function createCampaignAction(
   data: Prisma.CampaignUncheckedCreateInput
 ) {
-  return createCampaign(data);
+  const campaign = await createCampaign(data);
+  return campaign.id;
 }
 
 export async function updateCampaignAction(

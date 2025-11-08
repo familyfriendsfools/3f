@@ -1,7 +1,4 @@
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ComponentPropsWithoutRef } from "react";
 
 export function LoginForm({
@@ -18,12 +15,12 @@ export function LoginForm({
       </div>
       <div className="grid gap-6">
         <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <label htmlFor="email">Email</label>
+          <input id="email" type="email" placeholder="m@example.com" required />
         </div>
         <div className="grid gap-2">
           <div className="flex items-center">
-            <Label htmlFor="password">Password</Label>
+            <label htmlFor="password">Password</label>
             <a
               href="#"
               className="ml-auto text-sm underline-offset-4 hover:underline"
@@ -31,17 +28,17 @@ export function LoginForm({
               Forgot your password?
             </a>
           </div>
-          <Input id="password" type="password" required />
+          <input id="password" type="password" required />
         </div>
-        <Button type="submit" className="w-full">
+        <button type="submit" className="w-full">
           Login
-        </Button>
+        </button>
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-background px-2 text-muted-foreground">
             Or continue with
           </span>
         </div>
-        <Button variant="outline" className="w-full flex items-center gap-2">
+        <button className="w-full flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -65,7 +62,7 @@ export function LoginForm({
             />
           </svg>
           Login with Google
-        </Button>
+        </button>
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}

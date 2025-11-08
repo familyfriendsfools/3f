@@ -7,25 +7,78 @@ import {
   InterestType,
   PaymentFrequency,
   CampaignStatus,
-} from "../../src/generated/prisma";
+  BusinessArea,
+  BusinessSubarea,
+} from "@prisma/client";
 import { faker } from "@faker-js/faker";
+
+const areaToSubareas: Record<BusinessArea, BusinessSubarea[]> = {
+  INDUSTRY: [
+    "GOODS_PRODUCTION",
+    "AGRIBUSINESS",
+    "MINING",
+    "CONSTRUCTION",
+    "OTHER_INDUSTRY",
+  ],
+  COMMERCE: [
+    "RETAIL",
+    "WHOLESALE",
+    "FRANCHISE",
+    "OTHER_COMMERCE",
+  ],
+  SERVICES: [
+    "HEALTH_WELLNESS",
+    "EDUCATION",
+    "CONSULTING",
+    "TECHNOLOGY",
+    "LOGISTICS",
+    "LEGAL",
+    "SPECIALIZED",
+    "OTHER_SERVICES",
+  ],
+  FINANCE: [
+    "BANKING",
+    "INSURANCE",
+    "FINTECH",
+    "STOCK_MARKET",
+    "OTHER_FINANCE",
+  ],
+  TOURISM: [
+    "HOSPITALITY",
+    "FOOD",
+    "TRAVEL_AGENCY",
+    "EVENTS",
+    "OTHER_TOURISM",
+  ],
+  MEDIA: [
+    "ADVERTISING",
+    "AUDIOVISUAL",
+    "JOURNALISM",
+    "DIGITAL_PLATFORMS",
+    "INFO_MANAGEMENT",
+    "PR",
+    "OTHER_MEDIA",
+  ],
+  CULTURE: [
+    "ART_PRODUCTION",
+    "LITERATURE",
+    "MUSIC_AUDIO",
+    "PERFORMING_ARTS",
+    "HERITAGE",
+    "CREATIVE_INDUSTRY",
+  ],
+};
 
 export async function seedCampaigns(
   prisma: PrismaClient,
   users: { id: string }[],
-  areas: { id: string; name: string }[],
   count = 10
 ) {
-  const subareas = await prisma.businessArea.findMany({
-    where: { parentId: { not: null } },
-  });
-
   for (let i = 0; i < count; i++) {
     const user = faker.helpers.arrayElement(users);
-    const area = faker.helpers.arrayElement(areas);
-    const subarea = faker.helpers.arrayElement(
-      subareas.filter(s => s.parentId === area.id)
-    );
+    const area = faker.helpers.arrayElement(Object.values(BusinessArea));
+    const subareas = areaToSubareas[area];
+    const subarea = faker.helpers.arrayElement(subareas);
 
     await prisma.campaign.create({
       data: {
@@ -34,8 +87,8 @@ export async function seedCampaigns(
         description: faker.lorem.paragraph(),
         userId: user.id,
         businessType: faker.helpers.arrayElement(Object.values(BusinessType)),
-        businessAreaId: area.id,
-        businessSubareaId: subarea.id,
+        businessArea: area,
+        businessSubarea: subarea,
         stage: faker.helpers.arrayElement(Object.values(BusinessStage)),
         modelType: faker.helpers.arrayElement(Object.values(ModelType)),
         capitalPlan: faker.lorem.paragraph(),

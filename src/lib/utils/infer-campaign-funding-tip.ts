@@ -1,35 +1,36 @@
 export type CampaignFundingTipInput = {
-  area?: string;
-  subarea?: string;
-  estagio?: string;
-  tipo?: string;
+  businessArea?: string;
+  businessSubarea?: string;
+  businessStage?: string;
+  businessType?: string;
 };
 
-export function inferCampaignFundingTip({ area, subarea, estagio, tipo }: CampaignFundingTipInput): string | null {
-  if (!area || !estagio || !tipo) return null;
+export function inferCampaignFundingTip({ businessArea, businessSubarea, businessStage, businessType }: CampaignFundingTipInput): string | null {
+  console.log(businessArea, businessSubarea, businessStage, businessType);
+  if (!businessArea || !businessStage || !businessType) return null;
 
   const normalize = (str: string) => str.toLowerCase();
   const is = (val: string, set: string[]) => set.includes(val);
 
-  const statusBC = ["Tenho um conceito/ideia por desenvolver", "Protótipo ou MVP inicial em teste"];
-  const statusDF = ["Produto validado com primeiros clientes pagantes", "Preciso de rever modelo de negócio e/ou escalar para não fechar"];
+  const statusBC = ["CONCEPT", "MVP"];
+  const statusDF = ["VALIDATED", "PIVOTING"];
 
-  const areaMatches = (target: string) => normalize(area).includes(normalize(target));
-  const subMatches = (target: string) => subarea && normalize(subarea).includes(normalize(target));
+  const areaMatches = (target: string) => normalize(businessArea).includes(normalize(target));
+  const subMatches = (target: string) => businessSubarea && normalize(businessSubarea).includes(normalize(target));
 
-  const tipoToLetterMap: Record<string, string> = {
-    "produto": "a",
-    "serviço": "b",
-    "subscrição, clube, comunidade, membership": "c",
-    "plataforma, marketplace": "d",
-    "licenciamento, franquia": "e",
-    "aluguer, leasing, rental": "f",
-    "economia colaborativa, compartilhada": "g",
-    "publicidade, marketing de recomendação": "h",
-    "economia circular, impacto social": "i",
+  const businessTypeToLetterMap: Record<string, string> = {
+    "PRODUCT": "a",
+    "SERVICE": "b",
+    "SUBSCRIPTION": "c",
+    "PLATFORM": "d",
+    "LICENSING": "e",
+    "RENTAL": "f",
+    "SHARING": "g",
+    "ADVERTISING": "h",
+    "IMPACT": "i",
   };
 
-  const letter = tipoToLetterMap[normalize(tipo)];
+  const letter = businessTypeToLetterMap[businessType as keyof typeof businessTypeToLetterMap];
   if (!letter) return null;
 
   const fundingTips: Record<string, Record<string, string>> = {
@@ -355,77 +356,77 @@ export function inferCampaignFundingTip({ area, subarea, estagio, tipo }: Campai
   };
 
   const matchOption = (): string | null => {
-    if (areaMatches("Produção e Indústria")) {
-      if (is(estagio, statusBC)) return "1";
-      if (is(estagio, statusDF)) return "2";
+    if (areaMatches("INDUSTRY")) {
+      if (is(businessStage, statusBC)) return "1";
+      if (is(businessStage, statusDF)) return "2";
     }
-    if (areaMatches("Comércio") && subMatches("loja física")) {
-      if (is(estagio, statusBC)) return "3";
-      if (is(estagio, statusDF)) return "4";
+    if (areaMatches("COMMERCE") && subMatches("RETAIL")) {
+      if (is(businessStage, statusBC)) return "3";
+      if (is(businessStage, statusDF)) return "4";
     }
-    if (areaMatches("Comércio") && subMatches("e-commerce")) {
-      if (is(estagio, statusBC)) return "5";
-      if (is(estagio, statusDF)) return "6";
+    if (areaMatches("COMMERCE") && subMatches("WHOLESALE")) {
+      if (is(businessStage, statusBC)) return "5";
+      if (is(businessStage, statusDF)) return "6";
     }
-    if (areaMatches("Comércio") && subMatches("franquias")) {
-      if (is(estagio, statusBC)) return "7";
-      if (is(estagio, statusDF)) return "8";
-    }
-    if (
-      areaMatches("Serviços") &&
-      (subMatches("saúde") || subMatches("educação") || subMatches("consultoria") || subMatches("formação"))
-    ) {
-      if (is(estagio, statusBC)) return "9";
-      if (is(estagio, statusDF)) return "10";
+    if (areaMatches("COMMERCE") && subMatches("FRANCHISE")) {
+      if (is(businessStage, statusBC)) return "7";
+      if (is(businessStage, statusDF)) return "8";
     }
     if (
-      areaMatches("Serviços") &&
-      (subMatches("tecnologia") || subMatches("logística") || subMatches("transporte"))
+      areaMatches("SERVICES") &&
+      (subMatches("HEALTH_WELLNESS") || subMatches("EDUCATION") || subMatches("CONSULTING") || subMatches("LEGAL"))
     ) {
-      if (is(estagio, statusBC)) return "11";
-      if (is(estagio, statusDF)) return "12";
-    }
-    if (areaMatches("Serviços") && subMatches("especializados")) {
-      if (is(estagio, statusBC)) return "13";
-      if (is(estagio, statusDF)) return "14";
-    }
-    if (areaMatches("Financeira") && subMatches("banca")) {
-      if (is(estagio, statusBC)) return "15";
-      if (is(estagio, statusDF)) return "16";
-    }
-    if (areaMatches("Financeira") && (subMatches("fintech") || subMatches("stock"))) {
-      if (is(estagio, statusBC)) return "17";
-      if (is(estagio, statusDF)) return "18";
-    }
-    if (areaMatches("Turismo")) {
-      if (is(estagio, statusBC)) return "19";
-      if (is(estagio, statusDF)) return "20";
+      if (is(businessStage, statusBC)) return "9";
+      if (is(businessStage, statusDF)) return "10";
     }
     if (
-      areaMatches("Media") &&
-      (subMatches("marketing") || subMatches("jornalismo") || subMatches("comunicação") || subMatches("gestão de informação") || subMatches("relações públicas"))
+      areaMatches("SERVICES") &&
+      (subMatches("TECHNOLOGY") || subMatches("LOGISTICS"))
     ) {
-      if (is(estagio, statusBC)) return "21";
-      if (is(estagio, statusDF)) return "22";
+      if (is(businessStage, statusBC)) return "11";
+      if (is(businessStage, statusDF)) return "12";
+    }
+    if (areaMatches("SERVICES") && subMatches("SPECIALIZED")) {
+      if (is(businessStage, statusBC)) return "13";
+      if (is(businessStage, statusDF)) return "14";
+    }
+    if (areaMatches("FINANCE") && subMatches("BANKING")) {
+      if (is(businessStage, statusBC)) return "15";
+      if (is(businessStage, statusDF)) return "16";
+    }
+    if (areaMatches("FINANCE") && (subMatches("FINTECH") || subMatches("STOCK_MARKET"))) {
+      if (is(businessStage, statusBC)) return "17";
+      if (is(businessStage, statusDF)) return "18";
+    }
+    if (areaMatches("TOURISM")) {
+      if (is(businessStage, statusBC)) return "19";
+      if (is(businessStage, statusDF)) return "20";
     }
     if (
-      areaMatches("Media") &&
-      (subMatches("plataformas") || subMatches("produção audiovisual"))
+      areaMatches("MEDIA") &&
+      (subMatches("ADVERTISING") || subMatches("JOURNALISM") || subMatches("INFO_MANAGEMENT") || subMatches("PR"))
     ) {
-      if (is(estagio, statusBC)) return "23";
-      if (is(estagio, statusDF)) return "24";
+      if (is(businessStage, statusBC)) return "21";
+      if (is(businessStage, statusDF)) return "22";
     }
-    if (areaMatches("Cultura") && subMatches("produção cultural")) {
-      if (is(estagio, statusBC)) return "25";
-      if (is(estagio, statusDF)) return "26";
+    if (
+      areaMatches("MEDIA") &&
+      (subMatches("DIGITAL_PLATFORMS") || subMatches("AUDIOVISUAL"))
+    ) {
+      if (is(businessStage, statusBC)) return "23";
+      if (is(businessStage, statusDF)) return "24";
     }
-    if (areaMatches("Cultura") && subMatches("património")) {
-      if (is(estagio, statusBC)) return "27";
-      if (is(estagio, statusDF)) return "28";
+    if (areaMatches("CULTURE") && subMatches("ART_PRODUCTION")) {
+      if (is(businessStage, statusBC)) return "25";
+      if (is(businessStage, statusDF)) return "26";
     }
-    if (areaMatches("Cultura") && subMatches("indústria criativa")) {
-      if (is(estagio, statusBC)) return "29";
-      if (is(estagio, statusDF)) return "30";
+    if (areaMatches("CULTURE") && subMatches("HERITAGE")) {
+      if (is(businessStage, statusBC)) return "27";
+      if (is(businessStage, statusDF)) return "28";
+    }
+    if (areaMatches("CULTURE") && subMatches("CREATIVE_INDUSTRY")) {
+      if (is(businessStage, statusBC)) return "29";
+      if (is(businessStage, statusDF)) return "30";
     }
     return null;
   };

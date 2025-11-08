@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -33,6 +32,73 @@ enum BusinessStage {
   VALIDATED
   GROWTH
   PIVOTING
+}
+
+enum BusinessArea {
+  INDUSTRY
+  COMMERCE
+  SERVICES
+  FINANCE
+  TOURISM
+  MEDIA
+  CULTURE
+}
+
+enum BusinessSubarea {
+  // INDUSTRY
+  GOODS_PRODUCTION
+  AGRIBUSINESS
+  MINING
+  CONSTRUCTION
+  OTHER_INDUSTRY
+
+  // COMMERCE
+  RETAIL
+  WHOLESALE
+  FRANCHISE
+  OTHER_COMMERCE
+
+  // SERVICES
+  HEALTH_WELLNESS
+  EDUCATION
+  CONSULTING
+  TECHNOLOGY
+  LOGISTICS
+  LEGAL
+  SPECIALIZED
+  OTHER_SERVICES
+
+  // FINANCE
+  BANKING
+  INSURANCE
+  FINTECH
+  STOCK_MARKET
+  OTHER_FINANCE
+
+  // TOURISM
+  HOSPITALITY
+  FOOD
+  TRAVEL_AGENCY
+  EVENTS
+  OTHER_TOURISM
+
+  // MEDIA
+  ADVERTISING
+  AUDIOVISUAL
+  JOURNALISM
+  DIGITAL_PLATFORMS
+  INFO_MANAGEMENT
+  PR
+  OTHER_MEDIA
+
+  // CULTURE
+  ART_PRODUCTION
+  LITERATURE
+  MUSIC_AUDIO
+  PERFORMING_ARTS
+  HERITAGE
+  CREATIVE_INDUSTRY
+  OTHER_CULTURE
 }
 
 enum ModelType {
@@ -81,12 +147,18 @@ enum DocType {
   PASSPORT
 }
 
+enum ProductPlan {
+  BASIC
+  PREMIUM
+}
+
 model User {
   id                    String      @id @default(uuid())
   email                 String      @unique
   name                  String?
   surnames              String?
   password              String
+  productPlan           ProductPlan?
   emailVerified         Boolean?
   rememberToken         String?
   nif                   String?
@@ -111,10 +183,8 @@ model Campaign {
   user                  User           @relation("UserCampaigns", fields: [userId], references: [id])
   userId                String
   businessType          BusinessType
-  businessArea          BusinessArea   @relation("CampaignBusinessArea", fields: [businessAreaId], references: [id])
-  businessAreaId        String
-  businessSubarea       BusinessArea   @relation("CampaignBusinessSubarea", fields: [businessSubareaId], references: [id])
-  businessSubareaId     String
+  businessArea          BusinessArea
+  businessSubarea       BusinessSubarea
   stage                 BusinessStage
   modelType             ModelType?
   capitalPlan           String?
@@ -149,14 +219,4 @@ model Investment {
   repaymentUnit         RepaymentUnit
   interestType          InterestType
   createdAt             DateTime          @default(now())
-}
-
-model BusinessArea {
-  id                    String             @id @default(uuid())
-  name                  String
-  parentId              String?
-  parent                BusinessArea?      @relation("Parent", fields: [parentId], references: [id])
-  children              BusinessArea[]     @relation("Parent")
-  asMainAreaFor         Campaign[]         @relation("CampaignBusinessArea")
-  asSubareaFor          Campaign[]     @relation("CampaignBusinessSubarea")
 }

@@ -1,6 +1,5 @@
-import { PrismaClient, type Prisma } from "../../generated/prisma";
-
-const prisma = new PrismaClient();
+import type { Prisma } from "@prisma/client";
+import prisma from '@/lib/prisma'
 
 export async function createCampaign(
   data: Prisma.CampaignUncheckedCreateInput
@@ -23,8 +22,6 @@ export async function getCampaign(id: string) {
     where: { id },
     include: {
       user: true,
-      businessArea: true,
-      businessSubarea: true,
       investments: true,
     },
   });
@@ -34,8 +31,6 @@ export async function listCampaignsByUser(userId: string) {
   return prisma.campaign.findMany({
     where: { userId },
     include: {
-      businessArea: true,
-      businessSubarea: true,
       investments: true,
     },
     orderBy: { createdAt: "desc" },
