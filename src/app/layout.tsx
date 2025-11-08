@@ -22,7 +22,7 @@ const openSans = Open_Sans({
 
 export const metadata = {
   title: "3F Community",
-  description: "Family, Friends & Fools",
+  description: "Family, Friends & Fun",
 };
 
 export default function RootLayout({
