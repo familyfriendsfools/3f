@@ -15,7 +15,7 @@ export default function InitialQuestionnairePage() {
           <Image
             src="/logo-gray-round.png"
             alt="3F Logo"
-            className="w-[200px] h-[200px] lg:w-[250px] lg:h-[250px] dark:grayscale py-8 lg:py-0"
+            className="w-[200px] h-[200px] lg:w-[250px] lg:h-[250px]"
             width={250}
             height={250}
           />
