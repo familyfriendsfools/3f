@@ -11,11 +11,11 @@ export default function CreateCampaignPage() {
         className="flex relative items-center justify-center h-full"
         style={{ background: "#545454" }}
       >
-        <Link href="/demo">
+        <Link href="/quick-links">
           <Image
             src="/logo-gray-round.png"
             alt="3F Logo"
-            className="w-[200px] h-[200px] lg:w-[250px] lg:h-[250px] py-8 lg:py-0"
+            className="w-[200px] h-[200px] lg:w-[250px] lg:h-[250px]"
             width={250}
             height={250}
           />

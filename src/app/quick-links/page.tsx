@@ -9,7 +9,7 @@ export default function QuickLinksPage() {
         className="flex relative items-center justify-center h-full"
         style={{ background: "#545454" }}
       >
-        <Link href="/demo">
+        <Link href="/quick-links">
           <Image
             src="/logo-gray-round.png"
             alt="3F Logo"
