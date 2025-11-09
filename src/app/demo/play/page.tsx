@@ -3,6 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Pause, Play } from "lucide-react";
 
+const DESKTOP_SRC =
+  "https://ujhnvqbnflcpiwdq.public.blob.vercel-storage.com/3f-mvp-demo-4k.mp4";
+const MOBILE_SRC =
+  "https://ujhnvqbnflcpiwdq.public.blob.vercel-storage.com/3f-mvp-demo-4k-mobile.mp4";
+const MOBILE_BP = 768; // <768 → mobile
+
 export default function DemoPlayPage() {
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -11,6 +17,7 @@ export default function DemoPlayPage() {
   const [showIcon, setShowIcon] = useState(false);
   const [muted, setMuted] = useState(true);
   const [fit, setFit] = useState<"cover" | "contain">("cover");
+  const [src, setSrc] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const setVH = () => {
@@ -27,48 +34,75 @@ export default function DemoPlayPage() {
   }, []);
 
   useEffect(() => {
-    const decide = () => setFit(window.innerWidth < 768 ? "contain" : "cover");
-    decide();
-    window.addEventListener("resize", decide);
-    return () => window.removeEventListener("resize", decide);
+    const decide = () =>
+      window.innerWidth < MOBILE_BP ? MOBILE_SRC : DESKTOP_SRC;
+
+    setSrc(decide());
+
+    const onResize = () => {
+      const next = decide();
+      setSrc((prev) => (prev === next ? prev : next));
+    };
+    window.addEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const decideFit = () => setFit(window.innerWidth < MOBILE_BP ? "contain" : "cover");
+    decideFit();
+    window.addEventListener("resize", decideFit);
+    return () => window.removeEventListener("resize", decideFit);
   }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase();
 
-      if (key === "escape" || key === "d") {
-        router.push("/demo");
-      }
+      if (key === "escape" || key === "d") router.push("/demo");
 
       if (key === " " || key === "p") {
         e.preventDefault();
-        if (!videoRef.current) return;
-        if (videoRef.current.paused) {
-          videoRef.current.play();
+        const v = videoRef.current;
+        if (!v) return;
+        if (v.paused) {
+          v.play().catch(() => { });
           setPaused(false);
         } else {
-          videoRef.current.pause();
+          v.pause();
           setPaused(true);
         }
         setShowIcon(true);
         setTimeout(() => setShowIcon(false), 800);
       }
 
-      if (key === "f") {
-        setFit((f) => (f === "cover" ? "contain" : "cover"));
-      }
+      if (key === "f") setFit((f) => (f === "cover" ? "contain" : "cover"));
     };
 
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [router]);
 
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !src) return;
+    const wasPaused = v.paused;
+
+    v.load();
+
+    if (!wasPaused) {
+      v.play().catch(() => { });
+    }
+  }, [src]);
+
   const togglePlay = () => {
     const v = videoRef.current;
     if (!v) return;
     if (v.paused) {
-      v.play();
+      v.play().catch(() => { });
       setPaused(false);
     } else {
       v.pause();
@@ -80,7 +114,6 @@ export default function DemoPlayPage() {
 
   return (
     <main
-      // fill visual viewport with safe-area padding
       className="relative w-dvw overflow-hidden bg-black"
       style={{
         height: "calc(var(--vh, 1vh) * 100)",
@@ -91,18 +124,17 @@ export default function DemoPlayPage() {
       }}
     >
       <video
+        key={src}
         ref={videoRef}
-        src="https://ujhnvqbnflcpiwdq.public.blob.vercel-storage.com/3f-mvp-demo-4k.mp4"
+        src={src}
         autoPlay
         muted={muted}
         loop
         playsInline
         preload="auto"
-        className={`h-full w-full ${fit === "cover" ? "object-cover" : "object-contain"} select-none`}
-        // iOS sometimes needs an explicit play() once ready
-        onCanPlay={() => {
-          videoRef.current?.play().catch(() => { });
-        }}
+        className={`h-full w-full ${fit === "cover" ? "object-cover" : "object-contain"
+          } select-none`}
+        onCanPlay={() => videoRef.current?.play().catch(() => { })}
         onClick={togglePlay}
       />
 
@@ -130,7 +162,6 @@ export default function DemoPlayPage() {
         Fit: {fit === "cover" ? "Cover" : "Contain"} (F)
       </button>
 
-      {/* Hints */}
       <div className="absolute right-6 bottom-6 text-xs text-white/80">
         <span className="mr-3">
           <kbd className="rounded border border-white/40 px-1">Space</kbd> /{" "}
@@ -140,7 +171,6 @@ export default function DemoPlayPage() {
         <kbd className="rounded border border-white/40 px-1">Esc</kbd> exit
       </div>
 
-      {/* Play/Pause feedback */}
       {showIcon && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-white/90 drop-shadow-lg">
           <div className="rounded-full bg-black/40 p-4">
