@@ -220,3 +220,26 @@ model Investment {
   interestType          InterestType
   createdAt             DateTime          @default(now())
 }
+
+model Lead {
+  id         String        @id @default(uuid())
+  email      String
+  name       String?
+  surnames   String?
+  profile    String?  
+  score      Int?
+  source     String?      
+  challenge  String?       
+  createdAt  DateTime       @default(now())
+  answers    LeadAnswer[]  
+}
+
+model LeadAnswer {
+  id        String   @id @default(uuid())
+  leadId    String
+  question  String
+  answer    String
+  value     Int?
+  createdAt DateTime @default(now())
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+}
