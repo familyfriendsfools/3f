@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function LeadForm() {
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     document.documentElement.style.scrollBehavior = "auto";
