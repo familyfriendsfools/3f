@@ -42,9 +42,9 @@ export default function QuickLinksPage() {
           </Link>
         </li>
         <li className="w-3/4">
-          <p className="cursor-not-allowed text-center text-dark-gray font-semibold px-4 py-2 rounded-md shadow-md bg-gray-200 hover:bg-gray-300 transition duration-200 w-full block">
-            Assess your idea (coming soon)
-          </p>
+          <Link href="/venture-assessment" target="_blank" className="cursor-pointer text-center bg-dark-orange text-white font-semibold px-4 py-2 rounded-md shadow-md hover:bg-light-orange transition duration-200 w-full block">
+            adVenture assessment your idea
+          </Link>
         </li>
       </ul>
     </div>
