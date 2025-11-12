@@ -31,7 +31,7 @@ export default function LeadForm() {
             required
           />
           <button
-            disabled={/\S+@\S+\.\S+/.test(email)}
+            disabled={!(/\S+@\S+\.\S+/.test(email))}
             onClick={async () => {
               await createLeadAction({
                 email,
