@@ -3,10 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Pause, Play } from "lucide-react";
 
-const DESKTOP_SRC =
-  "https://ujhnvqbnflcpiwdq.public.blob.vercel-storage.com/3f-mvp-demo-4k.mp4";
-const MOBILE_SRC =
-  "https://ujhnvqbnflcpiwdq.public.blob.vercel-storage.com/3f-mvp-demo-4k-mobile.mp4";
+const DESKTOP_SRC = "/demo/3f-demo-desktop-1028.mp4";
+const MOBILE_SRC = "/demo/3f-demo-mobile-1028.mp4";
 const MOBILE_BP = 768; // <768 → mobile
 
 export default function DemoPlayPage() {
